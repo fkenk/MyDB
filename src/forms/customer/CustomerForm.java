@@ -49,7 +49,7 @@ public class CustomerForm extends JPanel implements Fill {
             e.consume();
             System.out.println("dafdf");
             System.out.println("dfsdfdsfsdf");
-            System.out.println("");
+            System.out.println("aaaaaaaaaaaaaaaaaaaa");
         }
     }
 
