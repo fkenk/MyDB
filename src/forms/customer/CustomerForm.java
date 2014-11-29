@@ -134,7 +134,7 @@ public class CustomerForm extends JPanel implements Fill {
             label4.setForeground(new Color(182, 66, 103));
             label4.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label4, new TableLayoutConstraints(0, 8, 1, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-            this2.add(textField4, new TableLayoutConstraints(2, 8, 5, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField4, new TableLayoutConstraints(2, 8, 3, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label5 ----
             label5.setText("Banking account");
@@ -155,6 +155,7 @@ public class CustomerForm extends JPanel implements Fill {
 
             //---- button2 ----
             button2.setText("Delete");
+            button2.setBackground(Color.white);
             button2.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
