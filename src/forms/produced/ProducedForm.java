@@ -21,7 +21,6 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
-import static test.generated.Tables.CUSTOMER;
 import static test.generated.Tables.PRODUCED;
 
 /**
@@ -192,12 +191,13 @@ public class ProducedForm extends JPanel implements Fill {
     private JTextField textField3;
     private JButton button1;
     private JButton button2;
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Override
     public void fill(ArrayList objects) {
         textField1.setText(String.valueOf(objects.get(0)));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = null;
+        Date parsed;
         try {
             parsed = format.parse(String.valueOf(objects.get(1)));
             calendarCombo1.setDate(parsed);
@@ -208,5 +208,4 @@ public class ProducedForm extends JPanel implements Fill {
         textField2.setText(String.valueOf(objects.get(2)));
         textField3.setText(String.valueOf(objects.get(3)));
     }
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

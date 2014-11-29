@@ -6,7 +6,6 @@ package forms.order;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,8 +19,6 @@ import org.freixas.jcalendar.*;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
-
-import static test.generated.Tables.CUSTOMER;
 import static test.generated.Tables.ORDER_CONTRACT;
 
 /**
@@ -222,12 +219,12 @@ public class OrderForm extends JPanel implements Fill{
     private JTextField textField6;
     private JButton button1;
     private JButton button2;
-
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
     @Override
     public void fill(ArrayList objects) {
         textField1.setText(String.valueOf(objects.get(0)));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date parsed = null;
+        java.util.Date parsed;
         try {
             parsed = format.parse(String.valueOf(objects.get(1)));
             calendarCombo1.setDate(parsed);
@@ -240,6 +237,4 @@ public class OrderForm extends JPanel implements Fill{
         textField5.setText(String.valueOf(objects.get(4)));
         textField6.setText(String.valueOf(objects.get(5)));
     }
-
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

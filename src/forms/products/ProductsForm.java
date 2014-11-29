@@ -6,7 +6,6 @@ package forms.products;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -18,7 +17,6 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
-import static test.generated.Tables.CUSTOMER;
 import static test.generated.Tables.PRODUCTS;
 
 /**
@@ -175,12 +173,14 @@ public class ProductsForm extends JPanel implements Fill {
     private JButton button1;
     private JButton button2;
 
+
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
+
     @Override
     public void fill(ArrayList objects) {
         textField1.setText(String.valueOf(objects.get(0)));
         textField2.setText(String.valueOf(objects.get(1)));
         textField3.setText(String.valueOf(objects.get(2)));
     }
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 }
