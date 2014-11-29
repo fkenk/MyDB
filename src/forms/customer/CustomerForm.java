@@ -16,14 +16,11 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
 import javax.swing.*;
-import javax.xml.transform.Result;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static test.generated.Tables.CUSTOMER;
@@ -50,7 +47,7 @@ public class CustomerForm extends JPanel implements Fill {
 
     private void textField1KeyTyped(KeyEvent e) {
         char c = e.getKeyChar();
-        if(!Character.isDigit(c) || c==KeyEvent.VK_BACK_SPACE || c==KeyEvent.VK_DELETE) {
+        if(!Character.isDigit(c)) {
             e.consume();
         }
     }
@@ -168,14 +165,6 @@ public class CustomerForm extends JPanel implements Fill {
         }
         add(this2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
-    }
-
-    private void addIDToCombobox() {
-        DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
-        org.jooq.Result<Record1<Integer>> result = create.select(CUSTOMER.IDCUSTOMER).from(CUSTOMER).fetch();
-        for(Record r : result){
-
-        }
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
