@@ -10,8 +10,6 @@ import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 import MAIN.Main;
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Record1;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
