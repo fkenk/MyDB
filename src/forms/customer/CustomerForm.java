@@ -47,6 +47,8 @@ public class CustomerForm extends JPanel implements Fill {
         char c = e.getKeyChar();
         if(!Character.isDigit(c)) {
             e.consume();
+            System.out.println("dafdf");
+            System.out.println("dfsdfdsfsdf");
         }
     }
 
