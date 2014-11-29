@@ -46,7 +46,7 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 2
 					"gridX": 2
-					"gridWidth": 4
+					"gridWidth": 2
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label3"
