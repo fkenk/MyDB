@@ -117,9 +117,9 @@ new FormModel {
 					"text": "Add"
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 11
+					"gridY": 10
 					"gridWidth": 2
-					"gridX": 2
+					"gridX": 4
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "button2"
