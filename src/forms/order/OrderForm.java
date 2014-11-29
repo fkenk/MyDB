@@ -71,8 +71,10 @@ public class OrderForm extends JPanel implements Fill{
         calendarCombo1 = new JCalendarCombo();
         label7 = new JLabel();
         textField3 = new JTextField();
+        comboBox1 = new JComboBox();
         label4 = new JLabel();
         textField4 = new JTextField();
+        comboBox2 = new JComboBox();
         label5 = new JLabel();
         textField5 = new JTextField();
         label6 = new JLabel();
@@ -139,7 +141,8 @@ public class OrderForm extends JPanel implements Fill{
                     textField1KeyTyped(e);
                 }
             });
-            this2.add(textField3, new TableLayoutConstraints(2, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField3, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(comboBox1, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label4 ----
             label4.setText("Id production");
@@ -154,7 +157,8 @@ public class OrderForm extends JPanel implements Fill{
                     textField1KeyTyped(e);
                 }
             });
-            this2.add(textField4, new TableLayoutConstraints(2, 8, 5, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField4, new TableLayoutConstraints(2, 8, 3, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(comboBox2, new TableLayoutConstraints(4, 8, 5, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label5 ----
             label5.setText("Count ");
@@ -211,8 +215,10 @@ public class OrderForm extends JPanel implements Fill{
     private JCalendarCombo calendarCombo1;
     private JLabel label7;
     private JTextField textField3;
+    private JComboBox comboBox1;
     private JLabel label4;
     private JTextField textField4;
+    private JComboBox comboBox2;
     private JLabel label5;
     private JTextField textField5;
     private JLabel label6;
@@ -236,5 +242,7 @@ public class OrderForm extends JPanel implements Fill{
         textField4.setText(String.valueOf(objects.get(3)));
         textField5.setText(String.valueOf(objects.get(4)));
         textField6.setText(String.valueOf(objects.get(5)));
+
+        //comboBox2.add(new DefaultComboBoxModel())
     }
 }
