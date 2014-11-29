@@ -52,7 +52,6 @@ public class CustomerForm extends JPanel implements Fill {
             System.out.println("aaaaaaaaaaaaaaaaaaaa");
             System.out.println("mybranch");
             System.out.println("myBranch1");
-            System.out.println("sdfdsf");
         }
     }
 
