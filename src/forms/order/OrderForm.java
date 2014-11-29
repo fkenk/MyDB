@@ -242,7 +242,6 @@ public class OrderForm extends JPanel implements Fill{
         textField4.setText(String.valueOf(objects.get(3)));
         textField5.setText(String.valueOf(objects.get(4)));
         textField6.setText(String.valueOf(objects.get(5)));
-
-        //comboBox2.add(new DefaultComboBoxModel())
+        //comboBox2.add("asdasd");
     }
 }
