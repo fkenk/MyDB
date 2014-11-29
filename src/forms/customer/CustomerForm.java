@@ -127,7 +127,7 @@ public class CustomerForm extends JPanel implements Fill {
             label7.setForeground(new Color(182, 66, 103));
             label7.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label7, new TableLayoutConstraints(0, 6, 1, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-            this2.add(textField3, new TableLayoutConstraints(2, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField3, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label4 ----
             label4.setText("Phone");
