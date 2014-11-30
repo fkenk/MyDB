@@ -88,15 +88,7 @@ public class SentForm extends JPanel implements Fill {
                     .leftOuterJoin(PRODUCTS)
                     .on(PRODUCTS.IDPRODUCTS.equal(SENT.IDPRODUCTION))
                     .fetchResultSet();
-            DatabaseTableModel databaseTableModel = new DatabaseTableModel();
-            try {
-                databaseTableModel.setDataSource(resultSet);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            } catch (ClassNotFoundException e1) {
-                e1.printStackTrace();
-            }
-            Main.mainForm.getTable1().setModel(databaseTableModel);
+            Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, SENT));
             label1.setText("Sent Form Symbol");
         } else
         if(label1.getText().equals("Sent Form Symbol")) {

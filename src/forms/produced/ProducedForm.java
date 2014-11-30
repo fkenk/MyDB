@@ -84,24 +84,16 @@ public class ProducedForm extends JPanel implements Fill {
 
     private void label1MouseClicked(MouseEvent e) {
         if(label1.getText().equals("Produced Form Numeric")) {
-            ResultSet resultSet = create.select(PRODUCED.IDPRODUCED,PRODUCED.DATE,PRODUCTS.NAME,PRODUCED.COUNT)
+            ResultSet resultSet = create.select(PRODUCED.IDPRODUCED, PRODUCED.DATE, PRODUCTS.NAME, PRODUCED.COUNT)
                     .from(PRODUCED)
                     .leftOuterJoin(PRODUCTS)
                     .on(PRODUCED.IDPRODUCTION.equal(PRODUCTS.IDPRODUCTS))
                     .fetchResultSet();
-            DatabaseTableModel databaseTableModel = new DatabaseTableModel();
-            try {
-                databaseTableModel.setDataSource(resultSet);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            } catch (ClassNotFoundException e1) {
-                e1.printStackTrace();
-            }
-            Main.mainForm.getTable1().setModel(databaseTableModel);
+            Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, PRODUCED));
             label1.setText("Produced Form Symbol");
         } else
         if(label1.getText().equals("Produced Form Symbol")) {
-            Main.mainForm.updateTable(ORDER_CONTRACT);
+            Main.mainForm.updateTable(PRODUCED);
             label1.setText("Produced Form Numeric");
         }
     }

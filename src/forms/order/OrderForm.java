@@ -100,15 +100,7 @@ public class OrderForm extends JPanel implements Fill{
                     .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
                     .join(PRODUCTS)
                     .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION)).fetchResultSet();
-            DatabaseTableModel databaseTableModel = new DatabaseTableModel();
-            try {
-                databaseTableModel.setDataSource(resultSet);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            } catch (ClassNotFoundException e1) {
-                e1.printStackTrace();
-            }
-            Main.mainForm.getTable1().setModel(databaseTableModel);
+            Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
             /*TableColumn customerColumn = Main.mainForm.getTable1().getColumnModel().getColumn(2);
             JComboBox comboBoxForColum1 = new JComboBox();
             ArrayList<String> arrayList = new ArrayList<String>();
