@@ -233,5 +233,12 @@ public class ProducedForm extends JPanel implements Fill {
         }
         textField2.setText(String.valueOf(objects.get(2)));
         textField3.setText(String.valueOf(objects.get(3)));
+        for (int i = 0; i < comboBox1.getItemCount(); i++) {
+            String[] split = comboBox1.getItemAt(i).toString().split(" ");
+            if(split[0].equals(textField2.getText())){
+                comboBox1.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 }

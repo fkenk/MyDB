@@ -287,5 +287,19 @@ public class OrderForm extends JPanel implements Fill{
         textField4.setText(String.valueOf(objects.get(3)));
         textField5.setText(String.valueOf(objects.get(4)));
         textField6.setText(String.valueOf(objects.get(5)));
+        for (int i = 0; i < comboBox1.getItemCount(); i++) {
+            String[] split = comboBox1.getItemAt(i).toString().split(" ");
+            if(split[0].equals(textField3.getText())){
+                comboBox1.setSelectedIndex(i);
+                break;
+            }
+        }
+        for (int i = 0; i < comboBox2.getItemCount(); i++) {
+            String[] split = comboBox2.getItemAt(i).toString().split(" ");
+            if(split[0].equals(textField4.getText())){
+                comboBox2.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 }
