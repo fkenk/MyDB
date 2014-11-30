@@ -134,6 +134,7 @@ public class MainForm extends JFrame {
 
         if(tabbedPane1.getSelectedIndex() == 3) {
             this.updateTable(SENT);
+            sentForm.updateComboBoxes();
         }
 
         if(tabbedPane1.getSelectedIndex() == 4) {

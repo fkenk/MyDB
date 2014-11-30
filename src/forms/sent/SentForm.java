@@ -22,19 +22,18 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
-import static test.generated.Tables.CUSTOMER;
-import static test.generated.Tables.SENT;
+import static test.generated.Tables.*;
 
 /**
  * @author ad ad
  */
 public class SentForm extends JPanel implements Fill {
+    DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
     public SentForm() {
         initComponents();
     }
 
     private void button1MouseClicked(MouseEvent e) {
-        DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
         try {
             java.util.Date utilDate = calendarCombo1.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -54,6 +53,31 @@ public class SentForm extends JPanel implements Fill {
         }
     }
 
+    public void updateComboBoxes(){
+        ArrayList arrayList = new ArrayList();
+        for (Object[] objects1 : create.select(PRODUCTS.IDPRODUCTS, PRODUCTS.NAME).from(PRODUCTS).fetchArrays()) {
+            arrayList.add(objects1[0] + " " + objects1[1]);
+        }
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(arrayList.toArray());
+        comboBox1.setModel(comboBoxModel);
+        arrayList.clear();
+        for (Object[] objects1 : create.select(ORDER_CONTRACT.IDORDER, ORDER_CONTRACT.DATE).from(ORDER_CONTRACT).fetchArrays()) {
+            arrayList.add(objects1[0] + " " + objects1[1]);
+        }
+        comboBoxModel = new DefaultComboBoxModel(arrayList.toArray());
+        comboBox2.setModel(comboBoxModel);
+    }
+
+    private void comboBox1ActionPerformed(ActionEvent e) {
+        String[] strings = comboBox1.getSelectedItem().toString().split(" ");
+        textField3.setText(strings[0]);
+    }
+
+    private void comboBox2ActionPerformed(ActionEvent e) {
+        String[] strings = comboBox2.getSelectedItem().toString().split(" ");
+        textField4.setText(strings[0]);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         this2 = new JPanel();
@@ -64,10 +88,12 @@ public class SentForm extends JPanel implements Fill {
         calendarCombo1 = new JCalendarCombo();
         label7 = new JLabel();
         textField2 = new JTextField();
+        comboBox1 = new JComboBox();
         label5 = new JLabel();
         textField3 = new JTextField();
         label6 = new JLabel();
         textField4 = new JTextField();
+        comboBox2 = new JComboBox();
         button1 = new JButton();
         button2 = new JButton();
 
@@ -127,7 +153,16 @@ public class SentForm extends JPanel implements Fill {
                     textField1KeyTyped(e);
                 }
             });
-            this2.add(textField2, new TableLayoutConstraints(2, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField2, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- comboBox1 ----
+            comboBox1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    comboBox1ActionPerformed(e);
+                }
+            });
+            this2.add(comboBox1, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label5 ----
             label5.setText("Count ");
@@ -157,7 +192,16 @@ public class SentForm extends JPanel implements Fill {
                     textField1KeyTyped(e);
                 }
             });
-            this2.add(textField4, new TableLayoutConstraints(2, 10, 5, 10, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField4, new TableLayoutConstraints(2, 10, 3, 10, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- comboBox2 ----
+            comboBox2.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    comboBox2ActionPerformed(e);
+                }
+            });
+            this2.add(comboBox2, new TableLayoutConstraints(4, 10, 5, 10, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button1 ----
             button1.setText("Add");
@@ -186,10 +230,12 @@ public class SentForm extends JPanel implements Fill {
     private JCalendarCombo calendarCombo1;
     private JLabel label7;
     private JTextField textField2;
+    private JComboBox comboBox1;
     private JLabel label5;
     private JTextField textField3;
     private JLabel label6;
     private JTextField textField4;
+    private JComboBox comboBox2;
     private JButton button1;
     private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
