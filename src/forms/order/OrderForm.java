@@ -6,6 +6,8 @@ package forms.order;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,18 +21,21 @@ import org.freixas.jcalendar.*;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
+
+import static test.generated.Tables.CUSTOMER;
 import static test.generated.Tables.ORDER_CONTRACT;
+import static test.generated.Tables.PRODUCTS;
 
 /**
  * @author ad ad
  */
 public class OrderForm extends JPanel implements Fill{
+    DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
     public OrderForm() {
         initComponents();
     }
 
     private void button1MouseClicked(MouseEvent e) {
-        DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
         try {
             java.util.Date utilDate = calendarCombo1.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -44,7 +49,6 @@ public class OrderForm extends JPanel implements Fill{
     }
 
     private void button2MouseClicked(MouseEvent e) {
-        DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
         try {
             System.out.println(Integer.parseInt(textField1.getText()));
             create.delete(ORDER_CONTRACT).where(ORDER_CONTRACT.IDORDER.equal(Integer.parseInt(textField1.getText()))).execute();
@@ -59,6 +63,31 @@ public class OrderForm extends JPanel implements Fill{
         if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
             e.consume();
         }
+    }
+
+    public void updateComboBoxes(){
+        ArrayList arrayList = new ArrayList();
+        for (Object[] objects1 : create.select(CUSTOMER.IDCUSTOMER,CUSTOMER.NAME).from(CUSTOMER).fetchArrays()) {
+            arrayList.add(objects1[0] + " " + objects1[1]);
+        }
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(arrayList.toArray());
+        comboBox1.setModel(comboBoxModel);
+        arrayList.clear();
+        for (Object[] objects1 : create.select(PRODUCTS.IDPRODUCTS, PRODUCTS.NAME).from(PRODUCTS).fetchArrays()) {
+            arrayList.add(objects1[0] + " " + objects1[1]);
+        }
+        comboBoxModel = new DefaultComboBoxModel(arrayList.toArray());
+        comboBox2.setModel(comboBoxModel);
+    }
+
+    private void comboBox1ActionPerformed(ActionEvent e) {
+        String[] strings = comboBox1.getSelectedItem().toString().split(" ");
+        textField3.setText(strings[0]);
+    }
+
+    private void comboBox2ActionPerformed(ActionEvent e) {
+        String[] strings = comboBox2.getSelectedItem().toString().split(" ");
+        textField4.setText(strings[0]);
     }
 
     private void initComponents() {
@@ -142,6 +171,14 @@ public class OrderForm extends JPanel implements Fill{
                 }
             });
             this2.add(textField3, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- comboBox1 ----
+            comboBox1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    comboBox1ActionPerformed(e);
+                }
+            });
             this2.add(comboBox1, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label4 ----
@@ -158,6 +195,14 @@ public class OrderForm extends JPanel implements Fill{
                 }
             });
             this2.add(textField4, new TableLayoutConstraints(2, 8, 3, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- comboBox2 ----
+            comboBox2.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    comboBox2ActionPerformed(e);
+                }
+            });
             this2.add(comboBox2, new TableLayoutConstraints(4, 8, 5, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label5 ----
@@ -242,6 +287,5 @@ public class OrderForm extends JPanel implements Fill{
         textField4.setText(String.valueOf(objects.get(3)));
         textField5.setText(String.valueOf(objects.get(4)));
         textField6.setText(String.valueOf(objects.get(5)));
-        //comboBox2.add("asdasd");
     }
 }
