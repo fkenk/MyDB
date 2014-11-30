@@ -6,6 +6,8 @@ package forms.produced;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import javax.swing.*;
 
 import MAIN.Main;
 import connect.DBConnect;
+import connect.DatabaseTableModel;
 import forms.Fill;
 import info.clearthought.layout.*;
 import org.freixas.jcalendar.*;
@@ -21,8 +24,9 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
-import static test.generated.Tables.PRODUCED;
-import static test.generated.Tables.PRODUCTS;
+import static test.generated.Tables.*;
+import static test.generated.Tables.CUSTOMER;
+import static test.generated.Tables.ORDER_CONTRACT;
 
 /**
  * @author ad ad
@@ -78,6 +82,30 @@ public class ProducedForm extends JPanel implements Fill {
         textField2.setText(strings[0]);
     }
 
+    private void label1MouseClicked(MouseEvent e) {
+        if(label1.getText().equals("Produced Form Numeric")) {
+            ResultSet resultSet = create.select(PRODUCED.IDPRODUCED,PRODUCED.DATE,PRODUCTS.NAME,PRODUCED.COUNT)
+                    .from(PRODUCED)
+                    .leftOuterJoin(PRODUCTS)
+                    .on(PRODUCED.IDPRODUCTION.equal(PRODUCTS.IDPRODUCTS))
+                    .fetchResultSet();
+            DatabaseTableModel databaseTableModel = new DatabaseTableModel();
+            try {
+                databaseTableModel.setDataSource(resultSet);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+            Main.mainForm.getTable1().setModel(databaseTableModel);
+            label1.setText("Produced Form Symbol");
+        } else
+        if(label1.getText().equals("Produced Form Symbol")) {
+            Main.mainForm.updateTable(ORDER_CONTRACT);
+            label1.setText("Produced Form Numeric");
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         this2 = new JPanel();
@@ -110,9 +138,15 @@ public class ProducedForm extends JPanel implements Fill {
             ((TableLayout)this2.getLayout()).setVGap(5);
 
             //---- label1 ----
-            label1.setText("Produced Form");
+            label1.setText("Produced Form Numeric");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
+            label1.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    label1MouseClicked(e);
+                }
+            });
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
 
             //---- label2 ----
