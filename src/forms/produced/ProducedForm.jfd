@@ -80,7 +80,15 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 6
 					"gridX": 2
-					"gridWidth": 4
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboBox1"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "comboBox1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+					"gridX": 4
+					"gridY": 6
+					"gridWidth": 2
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label5"

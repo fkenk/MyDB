@@ -151,7 +151,7 @@ public class CustomerForm extends JPanel implements Fill {
                     button1MouseClicked(e);
                 }
             });
-            this2.add(button1, new TableLayoutConstraints(4, 10, 5, 10, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button1, new TableLayoutConstraints(2, 11, 3, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button2 ----
             button2.setText("Delete");

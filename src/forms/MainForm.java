@@ -119,7 +119,7 @@ public class MainForm extends JFrame {
 
 
     private void tabbedPane1StateChanged(ChangeEvent e) {
-                if(tabbedPane1.getSelectedIndex() == 0) {
+        if(tabbedPane1.getSelectedIndex() == 0) {
            this.updateTable(CUSTOMER);
         }
 
@@ -129,6 +129,7 @@ public class MainForm extends JFrame {
 
         if(tabbedPane1.getSelectedIndex() == 2) {
             this.updateTable(PRODUCED);
+            producedForm.updateComboBoxes();
         }
 
         if(tabbedPane1.getSelectedIndex() == 3) {
@@ -137,6 +138,7 @@ public class MainForm extends JFrame {
 
         if(tabbedPane1.getSelectedIndex() == 4) {
             this.updateTable(ORDER_CONTRACT);
+            orderForm.updateComboBoxes();
         }
 
     }
