@@ -6,6 +6,8 @@ package forms.sent;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +17,7 @@ import javax.swing.*;
 
 import MAIN.Main;
 import connect.DBConnect;
+import connect.DatabaseTableModel;
 import forms.Fill;
 import info.clearthought.layout.*;
 import org.freixas.jcalendar.*;
@@ -78,6 +81,30 @@ public class SentForm extends JPanel implements Fill {
         textField4.setText(strings[0]);
     }
 
+    private void label1MouseClicked(MouseEvent e) {
+        if(label1.getText().equals("Sent Form Numeric")) {
+            ResultSet resultSet = create.select(SENT.IDSENT, SENT.DATE, PRODUCTS.NAME, SENT.COUNT, SENT.NUMORDER)
+                    .from(SENT)
+                    .leftOuterJoin(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(SENT.IDPRODUCTION))
+                    .fetchResultSet();
+            DatabaseTableModel databaseTableModel = new DatabaseTableModel();
+            try {
+                databaseTableModel.setDataSource(resultSet);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+            Main.mainForm.getTable1().setModel(databaseTableModel);
+            label1.setText("Sent Form Symbol");
+        } else
+        if(label1.getText().equals("Sent Form Symbol")) {
+            Main.mainForm.updateTable(SENT);
+            label1.setText("Sent Form Numeric");
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         this2 = new JPanel();
@@ -113,9 +140,15 @@ public class SentForm extends JPanel implements Fill {
             ((TableLayout)this2.getLayout()).setVGap(5);
 
             //---- label1 ----
-            label1.setText("Send Form");
+            label1.setText("Sent Form Numeric");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
+            label1.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    label1MouseClicked(e);
+                }
+            });
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
 
             //---- label2 ----
