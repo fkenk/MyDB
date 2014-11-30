@@ -14,7 +14,6 @@ import org.jooq.*;
 import org.jooq.impl.DSL;
 import connect.*;
 
-import static org.jooq.impl.DSL.row;
 import static test.generated.Tables.*;
 import java.awt.*;
 import java.sql.ResultSet;
@@ -60,7 +59,7 @@ public class MainForm extends JFrame {
         tcl = new TableCellListener(table1, actionTable());
     }
 
-    private DatabaseTableModel setDBTableModel(ResultSet rs, Table s) {
+    public DatabaseTableModel setDBTableModel(ResultSet rs, Table s) {
         currTable = s;
         try {
             databaseTableModel.setDataSource(rs);
@@ -75,6 +74,10 @@ public class MainForm extends JFrame {
     public void updateTable(Table s){
         ResultSet result = create.select().from(s).fetchResultSet();
         table1.setModel(setDBTableModel(result, s));
+    }
+
+    public JTable getTable1() {
+        return table1;
     }
 
     public Action actionTable(){
@@ -110,7 +113,6 @@ public class MainForm extends JFrame {
 
                }catch (Exception exp) {
                    JOptionPane.showMessageDialog(Main.mainForm,exp);
-                   System.out.println(exp);
                }
                updateTable(currTable);
            }
@@ -166,7 +168,7 @@ public class MainForm extends JFrame {
                 e1.printStackTrace();
             }
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            Date parsed = null;
+            Date parsed;
             try {
                 parsed = format.parse(dataStr);
                 java.sql.Date sql = new java.sql.Date(parsed.getTime());

@@ -15,6 +15,7 @@ import javax.swing.*;
 
 import MAIN.Main;
 import connect.DBConnect;
+import connect.DatabaseTableModel;
 import forms.Fill;
 import info.clearthought.layout.*;
 import org.freixas.jcalendar.*;
@@ -66,17 +67,18 @@ public class OrderForm extends JPanel implements Fill{
     }
 
     public void updateComboBoxes(){
-        ArrayList arrayList = new ArrayList();
+        label1.setText("Order Form Numeric");
+        ArrayList<String> arrayList = new ArrayList<String>();
         for (Object[] objects1 : create.select(CUSTOMER.IDCUSTOMER,CUSTOMER.NAME).from(CUSTOMER).fetchArrays()) {
             arrayList.add(objects1[0] + " " + objects1[1]);
         }
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(arrayList.toArray());
+        DefaultComboBoxModel<Object> comboBoxModel = new DefaultComboBoxModel<Object>(arrayList.toArray());
         comboBox1.setModel(comboBoxModel);
         arrayList.clear();
         for (Object[] objects1 : create.select(PRODUCTS.IDPRODUCTS, PRODUCTS.NAME).from(PRODUCTS).fetchArrays()) {
             arrayList.add(objects1[0] + " " + objects1[1]);
         }
-        comboBoxModel = new DefaultComboBoxModel(arrayList.toArray());
+        comboBoxModel = new DefaultComboBoxModel<Object>(arrayList.toArray());
         comboBox2.setModel(comboBoxModel);
     }
 
@@ -90,6 +92,42 @@ public class OrderForm extends JPanel implements Fill{
         textField4.setText(strings[0]);
     }
 
+    private void label1MouseClicked(MouseEvent e) {
+        if(label1.getText().equals("Order Form Numeric")) {
+            ResultSet resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,CUSTOMER.NAME,PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER)
+                    .from(ORDER_CONTRACT)
+                    .leftOuterJoin(CUSTOMER)
+                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                    .join(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION)).fetchResultSet();
+            DatabaseTableModel databaseTableModel = new DatabaseTableModel();
+            try {
+                databaseTableModel.setDataSource(resultSet);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+            Main.mainForm.getTable1().setModel(databaseTableModel);
+            /*TableColumn customerColumn = Main.mainForm.getTable1().getColumnModel().getColumn(2);
+            JComboBox comboBoxForColum1 = new JComboBox();
+            ArrayList<String> arrayList = new ArrayList<String>();
+            /*for (Object[] objects1 : create.select(CUSTOMER.IDCUSTOMER, CUSTOMER.NAME).from(CUSTOMER).fetchArrays()) {
+                arrayList.add(objects1[0] + " " + objects1[1]);
+            }
+
+            DefaultComboBoxModel<Object> comboBoxModel = new DefaultComboBoxModel<Object>(arrayList.toArray());
+            comboBoxForColum1.setModel(comboBoxModel);
+            comboBoxForColum1.addItem("1");
+            customerColumn.setCellEditor(new DefaultCellEditor(comboBoxForColum1));*/
+            label1.setText("Order Form Symbol");
+        } else
+        if(label1.getText().equals("Order Form Symbol")) {
+            Main.mainForm.updateTable(ORDER_CONTRACT);
+            label1.setText("Order Form Numeric");
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         this2 = new JPanel();
@@ -100,10 +138,10 @@ public class OrderForm extends JPanel implements Fill{
         calendarCombo1 = new JCalendarCombo();
         label7 = new JLabel();
         textField3 = new JTextField();
-        comboBox1 = new JComboBox();
+        comboBox1 = new JComboBox<Object>();
         label4 = new JLabel();
         textField4 = new JTextField();
-        comboBox2 = new JComboBox();
+        comboBox2 = new JComboBox<Object>();
         label5 = new JLabel();
         textField5 = new JTextField();
         label6 = new JLabel();
@@ -127,9 +165,15 @@ public class OrderForm extends JPanel implements Fill{
             ((TableLayout)this2.getLayout()).setVGap(5);
 
             //---- label1 ----
-            label1.setText("Order Form");
+            label1.setText("Order Form Numeric");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
+            label1.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    label1MouseClicked(e);
+                }
+            });
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
 
             //---- label2 ----
@@ -260,10 +304,10 @@ public class OrderForm extends JPanel implements Fill{
     private JCalendarCombo calendarCombo1;
     private JLabel label7;
     private JTextField textField3;
-    private JComboBox comboBox1;
+    private JComboBox<Object> comboBox1;
     private JLabel label4;
     private JTextField textField4;
-    private JComboBox comboBox2;
+    private JComboBox<Object> comboBox2;
     private JLabel label5;
     private JTextField textField5;
     private JLabel label6;
