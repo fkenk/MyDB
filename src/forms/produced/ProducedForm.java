@@ -91,6 +91,11 @@ public class ProducedForm extends JPanel implements Fill {
                     .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, PRODUCED));
             label1.setText("Produced Form Symbol");
+            try {
+                resultSet.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         } else
         if(label1.getText().equals("Produced Form Symbol")) {
             Main.mainForm.updateTable(PRODUCED);

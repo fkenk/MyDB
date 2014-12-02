@@ -90,6 +90,11 @@ public class SentForm extends JPanel implements Fill {
                     .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, SENT));
             label1.setText("Sent Form Symbol");
+            try {
+                resultSet.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         } else
         if(label1.getText().equals("Sent Form Symbol")) {
             Main.mainForm.updateTable(SENT);

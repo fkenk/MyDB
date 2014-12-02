@@ -71,9 +71,14 @@ public class MainForm extends JFrame {
         return databaseTableModel;
     }
     
-    public void updateTable(Table s){
+    public void updateTable(Table s) {
         ResultSet result = create.select().from(s).fetchResultSet();
         table1.setModel(setDBTableModel(result, s));
+        try {
+            result.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public JTable getTable1() {
@@ -217,6 +222,11 @@ public class MainForm extends JFrame {
         tabbedPane1.setSelectedIndex(4);
         ResultSet result = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.IDCUSTOMER.equal(customerID)).fetchResultSet();
         table1.setModel(setDBTableModel(result, ORDER_CONTRACT));
+        try {
+            result.close();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
     }
 
     private void menuItem2ActionPerformed(ActionEvent e) {
