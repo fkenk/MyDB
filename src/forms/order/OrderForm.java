@@ -147,6 +147,10 @@ public class OrderForm extends JPanel implements Fill{
         Main.mainForm.updateTable(ORDER_CONTRACT);
     }
 
+    private void button4MouseClicked(MouseEvent e) {
+        //create.select().from(ORDER_CONTRACT).
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         this2 = new JPanel();
@@ -324,6 +328,12 @@ public class OrderForm extends JPanel implements Fill{
 
             //---- button4 ----
             button4.setText("Search");
+            button4.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    button4MouseClicked(e);
+                }
+            });
             this2.add(button4, new TableLayoutConstraints(5, 13, 5, 13, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         }
         add(this2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));

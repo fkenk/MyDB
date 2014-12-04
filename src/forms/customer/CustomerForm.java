@@ -13,6 +13,7 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.SQLDialect;
+import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 
 import javax.swing.*;
@@ -29,18 +30,20 @@ import static test.generated.Tables.CUSTOMER;
  * @author ad ad
  */
 public class CustomerForm extends JPanel implements Fill {
+    DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
     public CustomerForm() {
         initComponents();
     }
 
     private void button1MouseClicked(MouseEvent e){
-        DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
         try {
             create.insertInto(CUSTOMER, CUSTOMER.IDCUSTOMER, CUSTOMER.NAME, CUSTOMER.ADRESS, CUSTOMER.PHONE, CUSTOMER.BANKING_ACCOUNT).
                     values(Integer.parseInt(textField1.getText()), textField2.getText(), textField3.getText(), textField4.getText(), textField5.getText()).
                     execute();
-        }catch (Exception exp){
-            JOptionPane.showMessageDialog(Main.mainForm,exp);
+        }catch (DataAccessException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Duplicate key!");
+        }catch (NumberFormatException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
         Main.mainForm.updateTable(CUSTOMER);
     }
@@ -53,11 +56,26 @@ public class CustomerForm extends JPanel implements Fill {
     }
 
     private void button2MouseClicked(MouseEvent e) {
-        DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
         try {
             create.delete(CUSTOMER).where(CUSTOMER.IDCUSTOMER.equal(Integer.parseInt(textField1.getText()))).execute();
-        }catch (Exception exp) {
-            JOptionPane.showMessageDialog(Main.mainForm, exp);
+        }catch (NumberFormatException exp) {
+            JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
+        }
+        Main.mainForm.updateTable(CUSTOMER);
+    }
+
+    private void button3MouseClicked(MouseEvent e) {
+        try {
+            create.update(CUSTOMER).set(CUSTOMER.IDCUSTOMER, Integer.parseInt(textField1.getText()))
+                    .set(CUSTOMER.NAME, textField2.getText())
+                    .set(CUSTOMER.ADRESS, textField3.getText())
+                    .set(CUSTOMER.PHONE, textField4.getText())
+                    .set(CUSTOMER.BANKING_ACCOUNT, textField5.getText())
+                    .where(CUSTOMER.IDCUSTOMER.equal((Integer) Main.mainForm.getTable1().getValueAt(Main.mainForm.getTable1().getSelectedRow(),0))).execute();
+        }catch (IndexOutOfBoundsException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Choose row to update!");
+        }catch (Exception exp){
+            System.out.println(exp);
         }
         Main.mainForm.updateTable(CUSTOMER);
     }
@@ -78,6 +96,8 @@ public class CustomerForm extends JPanel implements Fill {
         textField5 = new JTextField();
         button1 = new JButton();
         button2 = new JButton();
+        button3 = new JButton();
+        button4 = new JButton();
 
         //======== this ========
         setLayout(new TableLayout(new double[][] {
@@ -113,35 +133,35 @@ public class CustomerForm extends JPanel implements Fill {
                     textField1KeyTyped(e);
                 }
             });
-            this2.add(textField1, new TableLayoutConstraints(2, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField1, new TableLayoutConstraints(2, 2, 5, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label3 ----
             label3.setText("Name");
             label3.setForeground(new Color(182, 66, 103));
             label3.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label3, new TableLayoutConstraints(0, 4, 1, 4, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-            this2.add(textField2, new TableLayoutConstraints(2, 4, 3, 4, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField2, new TableLayoutConstraints(2, 4, 5, 4, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label7 ----
             label7.setText("Adress");
             label7.setForeground(new Color(182, 66, 103));
             label7.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label7, new TableLayoutConstraints(0, 6, 1, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-            this2.add(textField3, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField3, new TableLayoutConstraints(2, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label4 ----
             label4.setText("Phone");
             label4.setForeground(new Color(182, 66, 103));
             label4.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label4, new TableLayoutConstraints(0, 8, 1, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-            this2.add(textField4, new TableLayoutConstraints(2, 8, 3, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField4, new TableLayoutConstraints(2, 8, 5, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label5 ----
             label5.setText("Banking account");
             label5.setForeground(new Color(182, 66, 103));
             label5.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label5, new TableLayoutConstraints(0, 10, 1, 10, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-            this2.add(textField5, new TableLayoutConstraints(2, 10, 3, 10, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(textField5, new TableLayoutConstraints(2, 10, 5, 10, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button1 ----
             button1.setText("Add");
@@ -151,7 +171,7 @@ public class CustomerForm extends JPanel implements Fill {
                     button1MouseClicked(e);
                 }
             });
-            this2.add(button1, new TableLayoutConstraints(2, 11, 3, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button1, new TableLayoutConstraints(2, 11, 2, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button2 ----
             button2.setText("Delete");
@@ -162,7 +182,21 @@ public class CustomerForm extends JPanel implements Fill {
                     button2MouseClicked(e);
                 }
             });
-            this2.add(button2, new TableLayoutConstraints(4, 11, 5, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button2, new TableLayoutConstraints(3, 11, 3, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- button3 ----
+            button3.setText("Update");
+            button3.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    button3MouseClicked(e);
+                }
+            });
+            this2.add(button3, new TableLayoutConstraints(4, 11, 4, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- button4 ----
+            button4.setText("Search");
+            this2.add(button4, new TableLayoutConstraints(5, 11, 5, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         }
         add(this2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -183,6 +217,8 @@ public class CustomerForm extends JPanel implements Fill {
     private JTextField textField5;
     private JButton button1;
     private JButton button2;
+    private JButton button3;
+    private JButton button4;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Override

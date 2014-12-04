@@ -46,7 +46,7 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 2
 					"gridX": 2
-					"gridWidth": 2
+					"gridWidth": 4
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label3"
@@ -62,7 +62,7 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 4
 					"gridX": 2
-					"gridWidth": 2
+					"gridWidth": 4
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label7"
@@ -78,7 +78,7 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 6
 					"gridX": 2
-					"gridWidth": 2
+					"gridWidth": 4
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label4"
@@ -94,7 +94,7 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 8
 					"gridX": 2
-					"gridWidth": 2
+					"gridWidth": 4
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label5"
@@ -110,7 +110,7 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 10
 					"gridX": 2
-					"gridWidth": 2
+					"gridWidth": 4
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "button1"
@@ -118,7 +118,6 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 11
-					"gridWidth": 2
 					"gridX": 2
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
@@ -127,9 +126,23 @@ new FormModel {
 					"background": new java.awt.Color( 255, 255, 255, 255 )
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button2MouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+					"gridX": 3
+					"gridY": 11
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button3"
+					"text": "Update"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button3MouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridX": 4
 					"gridY": 11
-					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button4"
+					"text": "Search"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+					"gridX": 5
+					"gridY": 11
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) )
 		}, new FormLayoutConstraints( null ) {
