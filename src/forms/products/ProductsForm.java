@@ -15,38 +15,39 @@ import forms.Fill;
 import info.clearthought.layout.*;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
+import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 
+import static test.generated.Tables.PRODUCED;
 import static test.generated.Tables.PRODUCTS;
 
 /**
  * @author ad ad
  */
 public class ProductsForm extends JPanel implements Fill {
-
-
+    DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
     public ProductsForm() {
         initComponents();
     }
 
     private void button1MouseClicked(MouseEvent e) {
-        DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
         try {
             create.insertInto(PRODUCTS, PRODUCTS.IDPRODUCTS, PRODUCTS.NAME, PRODUCTS.PRICE).
                     values(Integer.parseInt(textField1.getText()), textField2.getText(), Double.parseDouble(textField3.getText())).
                     execute();
-        } catch (Exception exp) {
-            JOptionPane.showMessageDialog(Main.mainForm, exp);
+        }catch (DataAccessException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Duplicate key!");
+        }catch (NumberFormatException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
         Main.mainForm.updateTable(PRODUCTS);
     }
 
     private void button2MouseClicked(MouseEvent e) {
-        DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
         try {
             create.delete(PRODUCTS).where(PRODUCTS.IDPRODUCTS.equal(Integer.parseInt(textField1.getText()))).execute();
-        } catch (Exception exp) {
-            JOptionPane.showMessageDialog(Main.mainForm, exp);
+        }catch (NumberFormatException exp) {
+            JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
         Main.mainForm.updateTable(PRODUCTS);
     }
@@ -66,6 +67,20 @@ public class ProductsForm extends JPanel implements Fill {
         }
     }
 
+    private void button3MouseClicked(MouseEvent e) {
+        try {
+            create.update(PRODUCTS).set(PRODUCTS.IDPRODUCTS, Integer.parseInt(textField1.getText()))
+                    .set(PRODUCTS.NAME, textField2.getText())
+                    .set(PRODUCTS.PRICE, Double.parseDouble(textField3.getText()))
+                    .where(PRODUCTS.IDPRODUCTS.equal((Integer) Main.mainForm.getTable1().getValueAt(Main.mainForm.getTable1().getSelectedRow(), 0))).execute();
+        }catch (IndexOutOfBoundsException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Choose row to update!");
+        }catch (NumberFormatException exp){
+            JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
+        }
+        Main.mainForm.updateTable(PRODUCTS);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         this2 = new JPanel();
@@ -78,21 +93,23 @@ public class ProductsForm extends JPanel implements Fill {
         textField3 = new JTextField();
         button1 = new JButton();
         button2 = new JButton();
+        button3 = new JButton();
+        button4 = new JButton();
 
         //======== this ========
-        setLayout(new TableLayout(new double[][]{
-                {TableLayout.FILL},
-                {TableLayout.PREFERRED}}));
-        ((TableLayout) getLayout()).setHGap(5);
-        ((TableLayout) getLayout()).setVGap(5);
+        setLayout(new TableLayout(new double[][] {
+            {TableLayout.FILL},
+            {TableLayout.PREFERRED}}));
+        ((TableLayout)getLayout()).setHGap(5);
+        ((TableLayout)getLayout()).setVGap(5);
 
         //======== this2 ========
         {
-            this2.setLayout(new TableLayout(new double[][]{
-                    {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
-                    {TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));
-            ((TableLayout) this2.getLayout()).setHGap(5);
-            ((TableLayout) this2.getLayout()).setVGap(5);
+            this2.setLayout(new TableLayout(new double[][] {
+                {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
+                {TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));
+            ((TableLayout)this2.getLayout()).setHGap(5);
+            ((TableLayout)this2.getLayout()).setVGap(5);
 
             //---- label1 ----
             label1.setText("Product Form");
@@ -145,7 +162,7 @@ public class ProductsForm extends JPanel implements Fill {
                     button1MouseClicked(e);
                 }
             });
-            this2.add(button1, new TableLayoutConstraints(2, 7, 3, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button1, new TableLayoutConstraints(2, 7, 2, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button2 ----
             button2.setText("Delete");
@@ -155,7 +172,21 @@ public class ProductsForm extends JPanel implements Fill {
                     button2MouseClicked(e);
                 }
             });
-            this2.add(button2, new TableLayoutConstraints(4, 7, 5, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button2, new TableLayoutConstraints(3, 7, 3, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- button3 ----
+            button3.setText("Update");
+            button3.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    button3MouseClicked(e);
+                }
+            });
+            this2.add(button3, new TableLayoutConstraints(4, 7, 4, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- button4 ----
+            button4.setText("Search");
+            this2.add(button4, new TableLayoutConstraints(5, 7, 5, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         }
         add(this2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -172,8 +203,8 @@ public class ProductsForm extends JPanel implements Fill {
     private JTextField textField3;
     private JButton button1;
     private JButton button2;
-
-
+    private JButton button3;
+    private JButton button4;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Override
