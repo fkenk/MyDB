@@ -240,6 +240,7 @@ public class MainForm extends JFrame {
         scrollPane1 = new JScrollPane();
         table1 = new JTable();
         tabbedPane1 = new JTabbedPane();
+        panel1 = new JPanel();
         popupMenu1 = new JPopupMenu();
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
@@ -290,6 +291,16 @@ public class MainForm extends JFrame {
             });
         }
         contentPane.add(tabbedPane1, new TableLayoutConstraints(0, 1, 2, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+        //======== panel1 ========
+        {
+            panel1.setLayout(new TableLayout(new double[][] {
+                {TableLayout.PREFERRED, TableLayout.PREFERRED},
+                {TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));
+            ((TableLayout)panel1.getLayout()).setHGap(5);
+            ((TableLayout)panel1.getLayout()).setVGap(5);
+        }
+        contentPane.add(panel1, new TableLayoutConstraints(3, 1, 4, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         setSize(895, 490);
         setLocationRelativeTo(getOwner());
 
@@ -327,6 +338,7 @@ public class MainForm extends JFrame {
     private JScrollPane scrollPane1;
     private JTable table1;
     private JTabbedPane tabbedPane1;
+    private JPanel panel1;
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;

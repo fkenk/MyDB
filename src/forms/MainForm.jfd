@@ -71,6 +71,18 @@ new FormModel {
 				"gridY": 1
 				"gridWidth": 3
 			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class info.clearthought.layout.TableLayout ) {
+				"$columnSpecs": "pref, pref"
+				"$rowSpecs": "pref, pref, pref"
+				"hGap": 5
+				"vGap": 5
+			} ) {
+				name: "panel1"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+				"gridX": 3
+				"gridY": 1
+				"gridWidth": 2
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 895, 490 )
