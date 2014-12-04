@@ -22,6 +22,7 @@ import info.clearthought.layout.*;
 import org.freixas.jcalendar.*;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
+import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 
 import static test.generated.Tables.*;
@@ -45,8 +46,10 @@ public class ProducedForm extends JPanel implements Fill {
             create.insertInto(PRODUCED, PRODUCED.IDPRODUCED, PRODUCED.DATE, PRODUCED.IDPRODUCTION, PRODUCED.COUNT).
                     values(Integer.parseInt(textField1.getText()), sqlDate, Integer.parseInt(textField2.getText()), Integer.parseInt(textField3.getText())).
                             execute();
-        }catch (Exception exp){
-            JOptionPane.showMessageDialog(Main.mainForm,exp);
+        }catch (DataAccessException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Duplicate key!");
+        }catch (NumberFormatException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
         Main.mainForm.updateTable(PRODUCED);
     }
@@ -54,8 +57,8 @@ public class ProducedForm extends JPanel implements Fill {
     private void button2MouseClicked(MouseEvent e) {
         try {
             create.delete(PRODUCED).where(PRODUCED.IDPRODUCED.equal(Integer.parseInt(textField1.getText()))).execute();
-        }catch (Exception exp) {
-            JOptionPane.showMessageDialog(Main.mainForm, exp);
+        }catch (NumberFormatException exp) {
+            JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
         Main.mainForm.updateTable(PRODUCED);
     }
@@ -103,6 +106,23 @@ public class ProducedForm extends JPanel implements Fill {
         }
     }
 
+    private void button3MouseClicked(MouseEvent e) {
+        try {
+            java.util.Date utilDate = calendarCombo1.getDate();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            create.update(PRODUCED).set(PRODUCED.IDPRODUCED, Integer.parseInt(textField1.getText()))
+                    .set(PRODUCED.DATE, sqlDate)
+                    .set(PRODUCED.IDPRODUCTION, Integer.parseInt(textField2.getText()))
+                    .set(PRODUCED.COUNT, Integer.parseInt(textField3.getText()))
+                    .where(PRODUCED.IDPRODUCED.equal((Integer) Main.mainForm.getTable1().getValueAt(Main.mainForm.getTable1().getSelectedRow(),0))).execute();
+        }catch (IndexOutOfBoundsException exp){
+            JOptionPane.showMessageDialog(Main.mainForm,"Choose row to update!");
+        }catch (NumberFormatException exp){
+            JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
+        }
+        Main.mainForm.updateTable(PRODUCED);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         this2 = new JPanel();
@@ -118,6 +138,8 @@ public class ProducedForm extends JPanel implements Fill {
         textField3 = new JTextField();
         button1 = new JButton();
         button2 = new JButton();
+        button3 = new JButton();
+        button4 = new JButton();
 
         //======== this ========
         setLayout(new TableLayout(new double[][] {
@@ -218,7 +240,7 @@ public class ProducedForm extends JPanel implements Fill {
                     button1MouseClicked(e);
                 }
             });
-            this2.add(button1, new TableLayoutConstraints(2, 9, 3, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button1, new TableLayoutConstraints(2, 9, 2, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button2 ----
             button2.setText("Delete");
@@ -228,7 +250,21 @@ public class ProducedForm extends JPanel implements Fill {
                     button2MouseClicked(e);
                 }
             });
-            this2.add(button2, new TableLayoutConstraints(4, 9, 5, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button2, new TableLayoutConstraints(3, 9, 3, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- button3 ----
+            button3.setText("Update");
+            button3.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    button3MouseClicked(e);
+                }
+            });
+            this2.add(button3, new TableLayoutConstraints(4, 9, 4, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- button4 ----
+            button4.setText("Search");
+            this2.add(button4, new TableLayoutConstraints(5, 9, 5, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         }
         add(this2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -248,6 +284,8 @@ public class ProducedForm extends JPanel implements Fill {
     private JTextField textField3;
     private JButton button1;
     private JButton button2;
+    private JButton button3;
+    private JButton button4;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Override

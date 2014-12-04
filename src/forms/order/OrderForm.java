@@ -141,8 +141,8 @@ public class OrderForm extends JPanel implements Fill{
                     .where(ORDER_CONTRACT.IDORDER.equal((Integer) Main.mainForm.getTable1().getValueAt(Main.mainForm.getTable1().getSelectedRow(),0))).execute();
         }catch (IndexOutOfBoundsException exp){
             JOptionPane.showMessageDialog(Main.mainForm,"Choose row to update!");
-        }catch (Exception exp){
-            System.out.println(exp);
+        }catch (NumberFormatException exp){
+            JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
         }
         Main.mainForm.updateTable(ORDER_CONTRACT);
     }
