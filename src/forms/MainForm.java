@@ -215,6 +215,7 @@ public class MainForm extends JFrame {
         if(tabbedPane1.getSelectedIndex() == 4) {
             orderForm.fill(objects);
         }
+        objects.clear();
     }
 
     private void menuItem3ActionPerformed(ActionEvent e) {
@@ -249,9 +250,9 @@ public class MainForm extends JFrame {
         //======== this ========
         setBackground(Color.white);
         Container contentPane = getContentPane();
-        contentPane.setLayout(new TableLayout(new double[][] {
-            {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
-            {TableLayout.FILL, 270}}));
+        contentPane.setLayout(new TableLayout(new double[][]{
+                {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
+                {TableLayout.FILL, 270}}));
         ((TableLayout)contentPane.getLayout()).setHGap(5);
         ((TableLayout)contentPane.getLayout()).setVGap(5);
 

@@ -55,7 +55,7 @@ public class OrderForm extends JPanel implements Fill{
 
     private void button2MouseClicked(MouseEvent e) {
         try {
-            System.out.println(Integer.parseInt(textField1.getText()));create.delete(ORDER_CONTRACT).where(ORDER_CONTRACT.IDORDER.equal(Integer.parseInt(textField1.getText()))).execute();
+            create.delete(ORDER_CONTRACT).where(ORDER_CONTRACT.IDORDER.equal(Integer.parseInt(textField1.getText()))).execute();
         }catch (NumberFormatException exp) {
             JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
