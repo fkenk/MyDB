@@ -238,9 +238,9 @@ public class MainForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        tabbedPane1 = new JTabbedPane();
         scrollPane1 = new JScrollPane();
         table1 = new JTable();
-        tabbedPane1 = new JTabbedPane();
         panel1 = new JPanel();
         popupMenu1 = new JPopupMenu();
         menuItem1 = new JMenuItem();
@@ -250,11 +250,22 @@ public class MainForm extends JFrame {
         //======== this ========
         setBackground(Color.white);
         Container contentPane = getContentPane();
-        contentPane.setLayout(new TableLayout(new double[][]{
-                {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
-                {TableLayout.FILL, 270}}));
+        contentPane.setLayout(new TableLayout(new double[][] {
+            {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
+            {TableLayout.FILL, 270}}));
         ((TableLayout)contentPane.getLayout()).setHGap(5);
         ((TableLayout)contentPane.getLayout()).setVGap(5);
+
+        //======== tabbedPane1 ========
+        {
+            tabbedPane1.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    tabbedPane1StateChanged(e);
+                }
+            });
+        }
+        contentPane.add(tabbedPane1, new TableLayoutConstraints(0, 0, 1, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         //======== scrollPane1 ========
         {
@@ -280,18 +291,7 @@ public class MainForm extends JFrame {
             });
             scrollPane1.setViewportView(table1);
         }
-        contentPane.add(scrollPane1, new TableLayoutConstraints(0, 0, 4, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
-        //======== tabbedPane1 ========
-        {
-            tabbedPane1.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    tabbedPane1StateChanged(e);
-                }
-            });
-        }
-        contentPane.add(tabbedPane1, new TableLayoutConstraints(0, 1, 2, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        contentPane.add(scrollPane1, new TableLayoutConstraints(2, 0, 4, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         //======== panel1 ========
         {
@@ -336,9 +336,9 @@ public class MainForm extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    private JTabbedPane tabbedPane1;
     private JScrollPane scrollPane1;
     private JTable table1;
-    private JTabbedPane tabbedPane1;
     private JPanel panel1;
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;

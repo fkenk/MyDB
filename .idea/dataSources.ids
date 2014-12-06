@@ -601,8 +601,9 @@
       <column name="idProdution" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="monthDeliver" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="percent" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="idOrder"/>
-      <foreign-key name="fk_order_contract_customer" columns="idCustomer" ref-table="customer" ref-schema="" ref-catalog="kursschema" ref-columns="idCustomer" update-rule="3" delete-rule="2" deferrability="2"/>
+      <foreign-key name="fk_order_contract_customer" columns="idCustomer" ref-table="customer" ref-schema="" ref-catalog="kursschema" ref-columns="idCustomer" update-rule="0" delete-rule="2" deferrability="2"/>
       <foreign-key name="fk_order_contract_products1" columns="idProdution" ref-table="products" ref-schema="" ref-catalog="kursschema" ref-columns="idProducts" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="fk_plan_order_contract1" table="plan" schema="" catalog="kursschema" columns="numOrder"/>
       <exported-key name="fk_sent_order_contract1" table="sent" schema="" catalog="kursschema" columns="numOrder"/>

@@ -11,7 +11,7 @@ package test.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OrderContract extends org.jooq.impl.TableImpl<test.generated.tables.records.OrderContractRecord> {
 
-	private static final long serialVersionUID = -159433113;
+	private static final long serialVersionUID = 66554580;
 
 	/**
 	 * The singleton instance of <code>kursschema.order_contract</code>
@@ -55,6 +55,11 @@ public class OrderContract extends org.jooq.impl.TableImpl<test.generated.tables
 	 * The column <code>kursschema.order_contract.monthDeliver</code>.
 	 */
 	public final org.jooq.TableField<test.generated.tables.records.OrderContractRecord, java.lang.Integer> MONTHDELIVER = createField("monthDeliver", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+	/**
+	 * The column <code>kursschema.order_contract.percent</code>.
+	 */
+	public final org.jooq.TableField<test.generated.tables.records.OrderContractRecord, java.lang.Integer> PERCENT = createField("percent", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
 	 * Create a <code>kursschema.order_contract</code> table reference

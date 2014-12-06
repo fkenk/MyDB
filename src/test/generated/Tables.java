@@ -19,11 +19,6 @@ public class Tables {
 	public static final test.generated.tables.Customer CUSTOMER = test.generated.tables.Customer.CUSTOMER;
 
 	/**
-	 * The table kursschema.log_customer
-	 */
-	public static final test.generated.tables.LogCustomer LOG_CUSTOMER = test.generated.tables.LogCustomer.LOG_CUSTOMER;
-
-	/**
 	 * The table kursschema.order_contract
 	 */
 	public static final test.generated.tables.OrderContract ORDER_CONTRACT = test.generated.tables.OrderContract.ORDER_CONTRACT;
@@ -47,4 +42,14 @@ public class Tables {
 	 * The table kursschema.sent
 	 */
 	public static final test.generated.tables.Sent SENT = test.generated.tables.Sent.SENT;
+
+	/**
+	 * VIEW
+	 */
+	public static final test.generated.tables.Vcustomer VCUSTOMER = test.generated.tables.Vcustomer.VCUSTOMER;
+
+	/**
+	 * VIEW
+	 */
+	public static final test.generated.tables.Vcustomer2 VCUSTOMER2 = test.generated.tables.Vcustomer2.VCUSTOMER2;
 }

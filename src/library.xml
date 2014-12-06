@@ -38,7 +38,7 @@
             <packageName>test.generated</packageName>
 
             <!-- The destination directory of your generated classes -->
-            <directory>D:\Institut3k1s\MyDB\src</directory>
+            <directory>D:\GitHub\MyDB\src</directory>
         </target>
     </generator>
 </configuration>

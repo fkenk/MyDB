@@ -45,7 +45,7 @@ public class SentForm extends JPanel implements Fill {
                     values(Integer.parseInt(textField1.getText()), sqlDate, Integer.parseInt(textField2.getText()), Integer.parseInt(textField3.getText()), Integer.parseInt(textField4.getText())).
                             execute();
         }catch (DataAccessException exp){
-            JOptionPane.showMessageDialog(Main.mainForm,"Duplicate key!");
+            JOptionPane.showMessageDialog(Main.mainForm,exp);
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
