@@ -83,6 +83,11 @@ public class OrderForm extends JPanel implements Fill{
         }
         comboBoxModel = new DefaultComboBoxModel<Object>(arrayList.toArray());
         comboBox2.setModel(comboBoxModel);
+        colorForColunms();
+    }
+
+    private void colorForColunms() {
+        Main.mainForm.getTable1().getColumnModel().getColumn(6).setCellRenderer(new Renderer());
     }
 
     private void comboBox1ActionPerformed(ActionEvent e) {
