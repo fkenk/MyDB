@@ -144,7 +144,7 @@ public class OrderForm extends JPanel implements Fill{
         java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
         java.util.Date utilDate2 = calendarCombo3.getDate();
         java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
-        ResultSet resultSet;
+        ResultSet resultSet = null;
         if(checkBox1.isSelected() && !checkBox2.isSelected() && !checkBox3.isSelected()){
             resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
                     .from(ORDER_CONTRACT)
@@ -222,6 +222,11 @@ public class OrderForm extends JPanel implements Fill{
                             .and(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0]))))
                     .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
+        }
+        try {
+            resultSet.close();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
         }
         colorForColunms();
     }

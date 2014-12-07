@@ -211,10 +211,18 @@ public class MainForm extends JFrame {
     private void menuItem3ActionPerformed(ActionEvent e) {
         int customerID = (Integer)table1.getValueAt(selectedRow,0);
         tabbedPane1.setSelectedIndex(4);
-        ResultSet result = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.IDCUSTOMER.equal(customerID)).fetchResultSet();
-        table1.setModel(setDBTableModel(result, ORDER_CONTRACT));
+        ResultSet resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                .from(ORDER_CONTRACT)
+                .leftOuterJoin(CUSTOMER)
+                .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                .join(PRODUCTS)
+                .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION))
+                .where(ORDER_CONTRACT.IDCUSTOMER.equal(customerID))
+                .fetchResultSet();
+        table1.setModel(setDBTableModel(resultSet, ORDER_CONTRACT));
+        orderForm.colorForColunms();
         try {
-            result.close();
+            resultSet.close();
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
