@@ -77,11 +77,13 @@ public class SentForm extends JPanel implements Fill {
     private void comboBox1ActionPerformed(ActionEvent e) {
         String[] strings = comboBox1.getSelectedItem().toString().split(" ");
         textField2.setText(strings[0]);
+        textField2.setBackground(Color.white);
     }
 
     private void comboBox2ActionPerformed(ActionEvent e) {
         String[] strings = comboBox2.getSelectedItem().toString().split(" ");
         textField4.setText(strings[0]);
+        textField2.setBackground(Color.white);
     }
 
     private void button2MouseClicked(MouseEvent e) {
@@ -109,6 +111,43 @@ public class SentForm extends JPanel implements Fill {
             JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
         }
         Main.mainForm.updateTable();
+    }
+
+    private void textField2KeyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        textField2.setBackground(Color.white);
+        if (!Character.isDigit(c)) {
+            e.consume();
+        }
+        boolean flag = false;
+        String s;
+        for (int i = 0; i < comboBox1.getItemCount(); i++) {
+            String[] split = comboBox1.getItemAt(i).toString().split(" ");
+            if(c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE){
+                s = textField2.getText();
+                if(split[0].equals(s)){
+                    comboBox1.setSelectedIndex(i);
+                    textField2.setText(textField2.getText().substring(0,textField2.getText().length()));
+                    flag = true;
+                    break;
+                }
+            }
+            else{
+                s = textField2.getText()+c;
+                if(split[0].equals(s)){
+                    comboBox1.setSelectedIndex(i);
+                    textField2.setText(textField2.getText().substring(0,textField2.getText().length()-1));
+                    flag = true;
+                    break;
+                }
+            }
+            //System.out.println(split[0]);
+            //System.out.println(s);
+
+        }
+        if(flag == false){
+            textField2.setBackground(new Color(170, 49, 58));
+        }
     }
 
 
@@ -196,7 +235,7 @@ public class SentForm extends JPanel implements Fill {
             textField2.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyTyped(KeyEvent e) {
-                    textField1KeyTyped(e);
+                    textField2KeyTyped(e);
                 }
             });
             this2.add(textField2, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
