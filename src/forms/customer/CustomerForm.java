@@ -22,6 +22,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import static test.generated.Tables.CUSTOMER;
@@ -31,10 +32,14 @@ import static test.generated.Tables.CUSTOMER;
  */
 public class CustomerForm extends JPanel implements Fill {
     DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
+
     public CustomerForm() {
         initComponents();
     }
 
+    public ResultSet customerSelect(){
+        return create.select().from(CUSTOMER).fetchResultSet();
+    }
     private void button1MouseClicked(MouseEvent e){
         try {
             create.insertInto(CUSTOMER, CUSTOMER.IDCUSTOMER, CUSTOMER.NAME, CUSTOMER.ADRESS, CUSTOMER.PHONE, CUSTOMER.BANKING_ACCOUNT).
@@ -45,7 +50,7 @@ public class CustomerForm extends JPanel implements Fill {
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
-        Main.mainForm.updateTable(CUSTOMER);
+        Main.mainForm.updateTable();
     }
 
     private void textField1KeyTyped(KeyEvent e) {
@@ -61,7 +66,7 @@ public class CustomerForm extends JPanel implements Fill {
         }catch (NumberFormatException exp) {
             JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
-        Main.mainForm.updateTable(CUSTOMER);
+        Main.mainForm.updateTable();
     }
 
     private void button3MouseClicked(MouseEvent e) {
@@ -77,7 +82,7 @@ public class CustomerForm extends JPanel implements Fill {
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
         }
-        Main.mainForm.updateTable(CUSTOMER);
+        Main.mainForm.updateTable();
     }
 
     private void initComponents() {

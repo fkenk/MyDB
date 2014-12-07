@@ -51,7 +51,7 @@ public class OrderForm extends JPanel implements Fill{
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
-        Main.mainForm.updateTable(ORDER_CONTRACT);
+        Main.mainForm.updateTable();
     }
 
     private void button2MouseClicked(MouseEvent e) {
@@ -60,7 +60,7 @@ public class OrderForm extends JPanel implements Fill{
         }catch (NumberFormatException exp) {
             JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
-        Main.mainForm.updateTable(ORDER_CONTRACT);
+        Main.mainForm.updateTable();
     }
 
     private void textField1KeyTyped(KeyEvent e) {
@@ -90,8 +90,8 @@ public class OrderForm extends JPanel implements Fill{
         colorForColunms();
     }
 
-    private void colorForColunms() {
-        Main.mainForm.getTable1().getColumnModel().getColumn(6).setCellRenderer(new Renderer());
+    public void colorForColunms() {
+        Main.mainForm.getTable1().getColumnModel().getColumn(8).setCellRenderer(new Renderer());
     }
 
     private void comboBox1ActionPerformed(ActionEvent e) {
@@ -99,38 +99,15 @@ public class OrderForm extends JPanel implements Fill{
         textField3.setText(strings[0]);
     }
 
-    private void label1MouseClicked(MouseEvent e) {
-        if(label1.getText().equals("Order Form Numeric")) {
-            ResultSet resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,CUSTOMER.NAME,PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
-                    .from(ORDER_CONTRACT)
-                    .leftOuterJoin(CUSTOMER)
-                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
-                    .join(PRODUCTS)
-                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION)).fetchResultSet();
-            Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
-            try {
-                resultSet.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-            /*TableColumn customerColumn = Main.mainForm.getTable1().getColumnModel().getColumn(2);
-            JComboBox comboBoxForColum1 = new JComboBox();
-            ArrayList<String> arrayList = new ArrayList<String>();
-            /*for (Object[] objects1 : create.select(CUSTOMER.IDCUSTOMER, CUSTOMER.NAME).from(CUSTOMER).fetchArrays()) {
-                arrayList.add(objects1[0] + " " + objects1[1]);
-            }
+    public ResultSet orderInnerJoin(){
+         ResultSet resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                .from(ORDER_CONTRACT)
+                .leftOuterJoin(CUSTOMER)
+                .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                .join(PRODUCTS)
+                .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION)).fetchResultSet();
 
-            DefaultComboBoxModel<Object> comboBoxModel = new DefaultComboBoxModel<Object>(arrayList.toArray());
-            comboBoxForColum1.setModel(comboBoxModel);
-            comboBoxForColum1.addItem("1");
-            customerColumn.setCellEditor(new DefaultCellEditor(comboBoxForColum1));*/
-            label1.setText("Order Form Symbol");
-        } else
-        if(label1.getText().equals("Order Form Symbol")) {
-            Main.mainForm.updateTable(ORDER_CONTRACT);
-            label1.setText("Order Form Numeric");
-        }
-        colorForColunms();
+        return resultSet;
     }
 
     private void button3MouseClicked(MouseEvent e) {
@@ -149,7 +126,7 @@ public class OrderForm extends JPanel implements Fill{
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
         }
-        Main.mainForm.updateTable(ORDER_CONTRACT);
+        Main.mainForm.updateTable();
     }
 
     private void button4MouseClicked(MouseEvent e) {
@@ -217,8 +194,6 @@ public class OrderForm extends JPanel implements Fill{
                     .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
         }
-
-        colorForColunms();
     }
 
     private void initComponents() {
@@ -279,12 +254,6 @@ public class OrderForm extends JPanel implements Fill{
             label1.setText("Order Form Numeric");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
-            label1.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    label1MouseClicked(e);
-                }
-            });
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
 
             //---- label2 ----
@@ -555,9 +524,9 @@ public class OrderForm extends JPanel implements Fill{
             e.printStackTrace();
         }
         textField3.setText(String.valueOf(objects.get(2)));
-        textField4.setText(String.valueOf(objects.get(3)));
-        textField5.setText(String.valueOf(objects.get(4)));
-        monthChooser1.setMonth((Integer)objects.get(5) - 1);
+        textField4.setText(String.valueOf(objects.get(4)));
+        textField5.setText(String.valueOf(objects.get(6)));
+        monthChooser1.setMonth((Integer)objects.get(7) - 1);
         for (int i = 0; i < comboBox1.getItemCount(); i++) {
             String[] split = comboBox1.getItemAt(i).toString().split(" ");
             if(split[0].equals(textField3.getText())){

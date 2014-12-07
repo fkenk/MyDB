@@ -6,6 +6,7 @@ package forms.products;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -40,7 +41,7 @@ public class ProductsForm extends JPanel implements Fill {
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
-        Main.mainForm.updateTable(PRODUCTS);
+        Main.mainForm.updateTable();
     }
 
     private void button2MouseClicked(MouseEvent e) {
@@ -49,7 +50,7 @@ public class ProductsForm extends JPanel implements Fill {
         }catch (NumberFormatException exp) {
             JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
-        Main.mainForm.updateTable(PRODUCTS);
+        Main.mainForm.updateTable();
     }
 
     private void textField1KeyTyped(KeyEvent e) {
@@ -78,7 +79,7 @@ public class ProductsForm extends JPanel implements Fill {
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
         }
-        Main.mainForm.updateTable(PRODUCTS);
+        Main.mainForm.updateTable();
     }
 
     private void initComponents() {
@@ -214,4 +215,7 @@ public class ProductsForm extends JPanel implements Fill {
         textField3.setText(String.valueOf(objects.get(2)));
     }
 
+    public ResultSet productsSelect() {
+        return create.select().from(PRODUCTS).fetchResultSet();
+    }
 }

@@ -55,8 +55,8 @@ public class MainForm extends JFrame {
         tabbedPane1.addTab("Order",orderForm);
         table1.setColumnSelectionInterval(table1.getColumnCount()-1,table1.getColumnCount()-1);
         table1.setRowSelectionInterval(table1.getRowCount()-1, table1.getRowCount()-1);
-        TableCellListener tcl;
-        tcl = new TableCellListener(table1, actionTable());
+        //TableCellListener tcl;
+        //tcl = new TableCellListener(table1, actionTable());
     }
 
     public DatabaseTableModel setDBTableModel(ResultSet rs, Table s) {
@@ -71,13 +71,25 @@ public class MainForm extends JFrame {
         return databaseTableModel;
     }
     
-    public void updateTable(Table s) {
-        ResultSet result = create.select().from(s).fetchResultSet();
-        table1.setModel(setDBTableModel(result, s));
-        try {
-            result.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void updateTable() {
+        if(tabbedPane1.getSelectedIndex() == 0) {
+            table1.setModel(setDBTableModel(customerForm.customerSelect(), CUSTOMER));
+        }
+        if(tabbedPane1.getSelectedIndex() == 1) {
+            table1.setModel(setDBTableModel(productsForm.productsSelect(), PRODUCTS));
+        }
+        if(tabbedPane1.getSelectedIndex() == 2) {
+            table1.setModel(setDBTableModel(producedForm.producedInnerJoin(), PRODUCED));
+            producedForm.updateComboBoxes();
+        }
+        if(tabbedPane1.getSelectedIndex() == 3) {
+            table1.setModel(setDBTableModel(sentForm.sentInnerJoin(), SENT));
+            sentForm.updateComboBoxes();
+        }
+        if(tabbedPane1.getSelectedIndex() == 4) {
+            table1.setModel(setDBTableModel(orderForm.orderInnerJoin(), ORDER_CONTRACT));
+            orderForm.updateComboBoxes();
+            orderForm.colorForColunms();
         }
     }
 
@@ -85,7 +97,7 @@ public class MainForm extends JFrame {
         return table1;
     }
 
-    public Action actionTable(){
+    /*public Action actionTable(){
         return new AbstractAction()
        {
            public void actionPerformed(ActionEvent e) {
@@ -122,33 +134,11 @@ public class MainForm extends JFrame {
                updateTable(currTable);
            }
        };
-    }
+    }*/
 
 
     private void tabbedPane1StateChanged(ChangeEvent e) {
-        if(tabbedPane1.getSelectedIndex() == 0) {
-           this.updateTable(CUSTOMER);
-        }
-
-        if(tabbedPane1.getSelectedIndex() == 1) {
-            this.updateTable(PRODUCTS);
-        }
-
-        if(tabbedPane1.getSelectedIndex() == 2) {
-            this.updateTable(PRODUCED);
-            producedForm.updateComboBoxes();
-        }
-
-        if(tabbedPane1.getSelectedIndex() == 3) {
-            this.updateTable(SENT);
-            sentForm.updateComboBoxes();
-        }
-
-        if(tabbedPane1.getSelectedIndex() == 4) {
-            this.updateTable(ORDER_CONTRACT);
-            orderForm.updateComboBoxes();
-        }
-
+           this.updateTable();
     }
 
     private void table1MouseClicked(MouseEvent e) {
@@ -178,7 +168,7 @@ public class MainForm extends JFrame {
                 parsed = format.parse(dataStr);
                 java.sql.Date sql = new java.sql.Date(parsed.getTime());
                 create.update(currTable).set(currTable.field(columnNames.get(column)),sql).where(currTable.field(0).equal(table1.getValueAt(selectedRow,0))).execute();
-                updateTable(currTable);
+                updateTable();
             } catch (ParseException e1) {
                 e1.printStackTrace();
             }
@@ -233,7 +223,7 @@ public class MainForm extends JFrame {
     private void menuItem2ActionPerformed(ActionEvent e) {
         int customerID = (Integer)table1.getValueAt(selectedRow, 0);
         create.delete(CUSTOMER).where(CUSTOMER.IDCUSTOMER.equal(customerID)).execute();
-        this.updateTable(CUSTOMER);
+        this.updateTable();
     }
 
     private void initComponents() {

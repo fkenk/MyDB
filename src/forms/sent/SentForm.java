@@ -49,7 +49,7 @@ public class SentForm extends JPanel implements Fill {
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
-        Main.mainForm.updateTable(SENT);
+        Main.mainForm.updateTable();
     }
 
     private void textField1KeyTyped(KeyEvent e) {
@@ -84,34 +84,13 @@ public class SentForm extends JPanel implements Fill {
         textField4.setText(strings[0]);
     }
 
-    private void label1MouseClicked(MouseEvent e) {
-        if(label1.getText().equals("Sent Form Numeric")) {
-            ResultSet resultSet = create.select(SENT.IDSENT, SENT.DATE, PRODUCTS.NAME, SENT.COUNT, SENT.NUMORDER)
-                    .from(SENT)
-                    .leftOuterJoin(PRODUCTS)
-                    .on(PRODUCTS.IDPRODUCTS.equal(SENT.IDPRODUCTION))
-                    .fetchResultSet();
-            Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, SENT));
-            label1.setText("Sent Form Symbol");
-            try {
-                resultSet.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        } else
-        if(label1.getText().equals("Sent Form Symbol")) {
-            Main.mainForm.updateTable(SENT);
-            label1.setText("Sent Form Numeric");
-        }
-    }
-
     private void button2MouseClicked(MouseEvent e) {
         try {
             create.delete(SENT).where(SENT.IDSENT.equal(Integer.parseInt(textField1.getText()))).execute();
         }catch (NumberFormatException exp) {
             JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
-        Main.mainForm.updateTable(SENT);
+        Main.mainForm.updateTable();
     }
 
     private void button3MouseClicked(MouseEvent e) {
@@ -129,7 +108,7 @@ public class SentForm extends JPanel implements Fill {
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
         }
-        Main.mainForm.updateTable(SENT);
+        Main.mainForm.updateTable();
     }
 
 
@@ -174,12 +153,6 @@ public class SentForm extends JPanel implements Fill {
             label1.setText("Sent Form Numeric");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
-            label1.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    label1MouseClicked(e);
-                }
-            });
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
 
             //---- label2 ----
@@ -338,8 +311,8 @@ public class SentForm extends JPanel implements Fill {
             e.printStackTrace();
         }
         textField2.setText(String.valueOf(objects.get(2)));
-        textField3.setText(String.valueOf(objects.get(3)));
-        textField4.setText(String.valueOf(objects.get(4)));
+        textField3.setText(String.valueOf(objects.get(4)));
+        textField4.setText(String.valueOf(objects.get(5)));
         for (int i = 0; i < comboBox1.getItemCount(); i++) {
             String[] split = comboBox1.getItemAt(i).toString().split(" ");
             if(split[0].equals(textField2.getText())){
@@ -354,5 +327,13 @@ public class SentForm extends JPanel implements Fill {
                 break;
             }
         }
+    }
+
+    public ResultSet sentInnerJoin() {
+        return create.select(SENT.IDSENT, SENT.DATE,SENT.IDPRODUCTION, PRODUCTS.NAME, SENT.COUNT, SENT.NUMORDER)
+                .from(SENT)
+                .leftOuterJoin(PRODUCTS)
+                .on(PRODUCTS.IDPRODUCTS.equal(SENT.IDPRODUCTION))
+                .fetchResultSet();
     }
 }

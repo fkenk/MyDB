@@ -51,7 +51,7 @@ public class ProducedForm extends JPanel implements Fill {
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
-        Main.mainForm.updateTable(PRODUCED);
+        Main.mainForm.updateTable();
     }
 
     private void button2MouseClicked(MouseEvent e) {
@@ -60,7 +60,7 @@ public class ProducedForm extends JPanel implements Fill {
         }catch (NumberFormatException exp) {
             JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
-        Main.mainForm.updateTable(PRODUCED);
+        Main.mainForm.updateTable();
     }
 
     private void textField1KeyTyped(KeyEvent e) {
@@ -85,27 +85,6 @@ public class ProducedForm extends JPanel implements Fill {
         textField2.setText(strings[0]);
     }
 
-    private void label1MouseClicked(MouseEvent e) {
-        if(label1.getText().equals("Produced Form Numeric")) {
-            ResultSet resultSet = create.select(PRODUCED.IDPRODUCED, PRODUCED.DATE, PRODUCTS.NAME, PRODUCED.COUNT)
-                    .from(PRODUCED)
-                    .leftOuterJoin(PRODUCTS)
-                    .on(PRODUCED.IDPRODUCTION.equal(PRODUCTS.IDPRODUCTS))
-                    .fetchResultSet();
-            Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, PRODUCED));
-            label1.setText("Produced Form Symbol");
-            try {
-                resultSet.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        } else
-        if(label1.getText().equals("Produced Form Symbol")) {
-            Main.mainForm.updateTable(PRODUCED);
-            label1.setText("Produced Form Numeric");
-        }
-    }
-
     private void button3MouseClicked(MouseEvent e) {
         try {
             java.util.Date utilDate = calendarCombo1.getDate();
@@ -120,7 +99,7 @@ public class ProducedForm extends JPanel implements Fill {
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
         }
-        Main.mainForm.updateTable(PRODUCED);
+        Main.mainForm.updateTable();
     }
 
     private void initComponents() {
@@ -160,12 +139,6 @@ public class ProducedForm extends JPanel implements Fill {
             label1.setText("Produced Form Numeric");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
-            label1.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    label1MouseClicked(e);
-                }
-            });
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
 
             //---- label2 ----
@@ -301,7 +274,7 @@ public class ProducedForm extends JPanel implements Fill {
             e.printStackTrace();
         }
         textField2.setText(String.valueOf(objects.get(2)));
-        textField3.setText(String.valueOf(objects.get(3)));
+        textField3.setText(String.valueOf(objects.get(4)));
         for (int i = 0; i < comboBox1.getItemCount(); i++) {
             String[] split = comboBox1.getItemAt(i).toString().split(" ");
             if(split[0].equals(textField2.getText())){
@@ -309,5 +282,13 @@ public class ProducedForm extends JPanel implements Fill {
                 break;
             }
         }
+    }
+
+    public ResultSet producedInnerJoin() {
+        return create.select(PRODUCED.IDPRODUCED, PRODUCED.DATE,PRODUCED.IDPRODUCTION, PRODUCTS.NAME, PRODUCED.COUNT)
+                .from(PRODUCED)
+                .leftOuterJoin(PRODUCTS)
+                .on(PRODUCED.IDPRODUCTION.equal(PRODUCTS.IDPRODUCTS))
+                .fetchResultSet();
     }
 }
