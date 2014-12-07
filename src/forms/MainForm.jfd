@@ -4,7 +4,7 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class info.clearthought.layout.TableLayout ) {
-			"$columnSpecs": "fill, fill, fill, fill, center:fill"
+			"$columnSpecs": "min, min, fill, fill, center:fill"
 			"$rowSpecs": "fill, 270.0"
 			"hGap": 5
 			"vGap": 5

@@ -14,14 +14,13 @@ import info.clearthought.layout.*;
 /**
  * @author ad ad
  */
-public class PlanForm extends JPanel implements Fill{
+public class PlanForm extends JPanel{
     public PlanForm() {
         initComponents();
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - ad ad
         this2 = new JPanel();
         label1 = new JLabel();
         label2 = new JLabel();
@@ -40,14 +39,6 @@ public class PlanForm extends JPanel implements Fill{
         button2 = new JButton();
 
         //======== this ========
-
-        // JFormDesigner evaluation mark
-        setBorder(new javax.swing.border.CompoundBorder(
-            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
         setLayout(new TableLayout(new double[][] {
             {TableLayout.FILL, TableLayout.PREFERRED},
             {TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));
@@ -123,7 +114,6 @@ public class PlanForm extends JPanel implements Fill{
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - ad ad
     private JPanel this2;
     private JLabel label1;
     private JLabel label2;
@@ -140,10 +130,5 @@ public class PlanForm extends JPanel implements Fill{
     private JTextField textField11;
     private JButton button1;
     private JButton button2;
-
-    @Override
-    public void fill(ArrayList objects) {
-
-    }
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
