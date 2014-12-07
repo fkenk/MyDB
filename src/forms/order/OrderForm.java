@@ -99,17 +99,6 @@ public class OrderForm extends JPanel implements Fill{
         textField3.setText(strings[0]);
     }
 
-    public ResultSet orderInnerJoin(){
-         ResultSet resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
-                .from(ORDER_CONTRACT)
-                .leftOuterJoin(CUSTOMER)
-                .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
-                .join(PRODUCTS)
-                .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION)).fetchResultSet();
-
-        return resultSet;
-    }
-
     private void button3MouseClicked(MouseEvent e) {
         try {
             java.util.Date utilDate = calendarCombo1.getDate();
@@ -157,43 +146,84 @@ public class OrderForm extends JPanel implements Fill{
         java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
         ResultSet resultSet;
         if(checkBox1.isSelected() && !checkBox2.isSelected() && !checkBox3.isSelected()){
-            resultSet = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.DATE.between(sqlDate1,sqlDate2)).fetchResultSet();
+            resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                    .from(ORDER_CONTRACT)
+                    .leftOuterJoin(CUSTOMER)
+                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                    .join(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION)).where(ORDER_CONTRACT.DATE.between(sqlDate1, sqlDate2)).fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
         }else if(!checkBox1.isSelected() && checkBox2.isSelected() && !checkBox3.isSelected() ){
             String[] strings = comboBox3.getSelectedItem().toString().split(" ");
-            resultSet = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0]))).fetchResultSet();
+            resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                    .from(ORDER_CONTRACT)
+                    .leftOuterJoin(CUSTOMER)
+                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                    .join(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION))
+                    .where(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0])))
+                    .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
         }else if(!checkBox1.isSelected() && !checkBox2.isSelected() && checkBox3.isSelected()){
-            resultSet = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.MONTHDELIVER.between(monthChooser2.getMonth() + 1,monthChooser3.getMonth() + 1)).fetchResultSet();
+            resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                    .from(ORDER_CONTRACT)
+                    .leftOuterJoin(CUSTOMER)
+                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                    .join(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION))
+                    .where(ORDER_CONTRACT.MONTHDELIVER.between(monthChooser2.getMonth() + 1,monthChooser3.getMonth() + 1))
+                    .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
         }else if(checkBox1.isSelected() && checkBox2.isSelected() && !checkBox3.isSelected()){
             String[] strings = comboBox3.getSelectedItem().toString().split(" ");
-            System.out.println(strings[0]);
-            resultSet = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.DATE.between(sqlDate1,sqlDate2)
-                    .and(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0]))))
+            resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                    .from(ORDER_CONTRACT)
+                    .leftOuterJoin(CUSTOMER)
+                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                    .join(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION))
+                    .where(ORDER_CONTRACT.DATE.between(sqlDate1, sqlDate2)
+                            .and(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0]))))
                     .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
         }else if(!checkBox1.isSelected() && checkBox2.isSelected() && checkBox3.isSelected()) {
             String[] strings = comboBox3.getSelectedItem().toString().split(" ");
-            System.out.println(strings[0]);
-            resultSet = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.MONTHDELIVER.between(monthChooser2.getMonth() + 1,monthChooser3.getMonth() + 1)
-                    .and(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0]))))
+            resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                    .from(ORDER_CONTRACT)
+                    .leftOuterJoin(CUSTOMER)
+                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                    .join(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION))
+                    .where(ORDER_CONTRACT.MONTHDELIVER.between(monthChooser2.getMonth() + 1, monthChooser3.getMonth() + 1)
+                            .and(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0]))))
                     .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
         }else if(checkBox1.isSelected() && !checkBox2.isSelected() && checkBox3.isSelected()) {
-            resultSet = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.MONTHDELIVER.between(monthChooser2.getMonth() + 1, monthChooser3.getMonth() + 1)
-                    .and(ORDER_CONTRACT.DATE.between(sqlDate1, sqlDate2)))
+            resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                    .from(ORDER_CONTRACT)
+                    .leftOuterJoin(CUSTOMER)
+                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                    .join(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION))
+                    .where(ORDER_CONTRACT.MONTHDELIVER.between(monthChooser2.getMonth() + 1, monthChooser3.getMonth() + 1)
+                            .and(ORDER_CONTRACT.DATE.between(sqlDate1, sqlDate2)))
                     .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
         }else if(checkBox1.isSelected() && checkBox2.isSelected() && checkBox3.isSelected()) {
             String[] strings = comboBox3.getSelectedItem().toString().split(" ");
-            System.out.println(strings[0]);
-            resultSet = create.select().from(ORDER_CONTRACT).where(ORDER_CONTRACT.MONTHDELIVER.between(monthChooser2.getMonth() + 1, monthChooser3.getMonth() + 1)
-                    .and(ORDER_CONTRACT.DATE.between(sqlDate1, sqlDate2))
-                    .and(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0]))))
+            resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                    .from(ORDER_CONTRACT)
+                    .leftOuterJoin(CUSTOMER)
+                    .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                    .join(PRODUCTS)
+                    .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION))
+                    .where(ORDER_CONTRACT.MONTHDELIVER.between(monthChooser2.getMonth() + 1, monthChooser3.getMonth() + 1)
+                            .and(ORDER_CONTRACT.DATE.between(sqlDate1, sqlDate2))
+                            .and(ORDER_CONTRACT.IDPRODUTION.equal(Integer.valueOf(strings[0]))))
                     .fetchResultSet();
             Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, ORDER_CONTRACT));
         }
+        colorForColunms();
     }
 
     private void initComponents() {
@@ -541,5 +571,15 @@ public class OrderForm extends JPanel implements Fill{
                 break;
             }
         }
+    }
+
+    public ResultSet orderInnerJoin(){
+        ResultSet resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
+                .from(ORDER_CONTRACT)
+                .leftOuterJoin(CUSTOMER)
+                .on(CUSTOMER.IDCUSTOMER.equal(ORDER_CONTRACT.IDCUSTOMER))
+                .join(PRODUCTS)
+                .on(PRODUCTS.IDPRODUCTS.equal(ORDER_CONTRACT.IDPRODUTION)).fetchResultSet();
+        return resultSet;
     }
 }
