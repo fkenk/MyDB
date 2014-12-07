@@ -111,8 +111,8 @@ public class ProducedForm extends JPanel implements Fill {
         label3 = new JLabel();
         calendarCombo1 = new JCalendarCombo();
         label7 = new JLabel();
-        textField2 = new JTextField();
         comboBox1 = new JComboBox();
+        textField2 = new JTextField();
         label5 = new JLabel();
         textField3 = new JTextField();
         button1 = new JButton();
@@ -172,15 +172,6 @@ public class ProducedForm extends JPanel implements Fill {
             label7.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label7, new TableLayoutConstraints(0, 6, 1, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
-            //---- textField2 ----
-            textField2.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    textField1KeyTyped(e);
-                }
-            });
-            this2.add(textField2, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
             //---- comboBox1 ----
             comboBox1.addActionListener(new ActionListener() {
                 @Override
@@ -188,7 +179,16 @@ public class ProducedForm extends JPanel implements Fill {
                     comboBox1ActionPerformed(e);
                 }
             });
-            this2.add(comboBox1, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(comboBox1, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- textField2 ----
+            textField2.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    textField1KeyTyped(e);
+                }
+            });
+            this2.add(textField2, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label5 ----
             label5.setText("Count ");
@@ -251,8 +251,8 @@ public class ProducedForm extends JPanel implements Fill {
     private JLabel label3;
     private JCalendarCombo calendarCombo1;
     private JLabel label7;
-    private JTextField textField2;
     private JComboBox comboBox1;
+    private JTextField textField2;
     private JLabel label5;
     private JTextField textField3;
     private JButton button1;

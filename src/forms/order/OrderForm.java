@@ -240,11 +240,11 @@ public class OrderForm extends JPanel implements Fill{
         label3 = new JLabel();
         calendarCombo1 = new JCalendarCombo();
         label7 = new JLabel();
-        textField3 = new JTextField();
         comboBox1 = new JComboBox();
+        textField3 = new JTextField();
         label4 = new JLabel();
-        textField4 = new JTextField();
         comboBox2 = new JComboBox();
+        textField4 = new JTextField();
         label5 = new JLabel();
         textField5 = new JTextField();
         label6 = new JLabel();
@@ -322,15 +322,6 @@ public class OrderForm extends JPanel implements Fill{
             label7.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label7, new TableLayoutConstraints(0, 6, 1, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
-            //---- textField3 ----
-            textField3.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    textField1KeyTyped(e);
-                }
-            });
-            this2.add(textField3, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
             //---- comboBox1 ----
             comboBox1.addActionListener(new ActionListener() {
                 @Override
@@ -338,22 +329,22 @@ public class OrderForm extends JPanel implements Fill{
                     comboBox1ActionPerformed(e);
                 }
             });
-            this2.add(comboBox1, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(comboBox1, new TableLayoutConstraints(2, 6, 3, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- textField3 ----
+            textField3.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    textField1KeyTyped(e);
+                }
+            });
+            this2.add(textField3, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label4 ----
             label4.setText("Id production");
             label4.setForeground(new Color(182, 66, 103));
             label4.setFont(new Font("Consolas", Font.BOLD, 15));
             this2.add(label4, new TableLayoutConstraints(0, 8, 1, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
-            //---- textField4 ----
-            textField4.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    textField1KeyTyped(e);
-                }
-            });
-            this2.add(textField4, new TableLayoutConstraints(2, 8, 3, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- comboBox2 ----
             comboBox2.addActionListener(new ActionListener() {
@@ -362,7 +353,16 @@ public class OrderForm extends JPanel implements Fill{
                     comboBox2ActionPerformed(e);
                 }
             });
-            this2.add(comboBox2, new TableLayoutConstraints(4, 8, 5, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(comboBox2, new TableLayoutConstraints(2, 8, 3, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- textField4 ----
+            textField4.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    textField1KeyTyped(e);
+                }
+            });
+            this2.add(textField4, new TableLayoutConstraints(4, 8, 5, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label5 ----
             label5.setText("Count ");
@@ -516,11 +516,11 @@ public class OrderForm extends JPanel implements Fill{
     private JLabel label3;
     private JCalendarCombo calendarCombo1;
     private JLabel label7;
-    private JTextField textField3;
     private JComboBox comboBox1;
+    private JTextField textField3;
     private JLabel label4;
-    private JTextField textField4;
     private JComboBox comboBox2;
+    private JTextField textField4;
     private JLabel label5;
     private JTextField textField5;
     private JLabel label6;
