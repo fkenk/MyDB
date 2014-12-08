@@ -16,15 +16,18 @@ import java.util.Date;
 import javax.swing.*;
 
 import MAIN.Main;
+import com.toedter.calendar.*;
 import connect.DBConnect;
 import connect.DatabaseTableModel;
 import forms.Fill;
 import info.clearthought.layout.*;
 import org.freixas.jcalendar.*;
 import org.jooq.DSLContext;
+import org.jooq.Field;
 import org.jooq.SQLDialect;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
+
 
 import static test.generated.Tables.*;
 
@@ -66,6 +69,8 @@ public class SentForm extends JPanel implements Fill {
         }
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(arrayList.toArray());
         comboBox1.setModel(comboBoxModel);
+        comboBoxModel = new DefaultComboBoxModel(arrayList.toArray());
+        comboBox3.setModel(comboBoxModel);
         arrayList.clear();
         for (Object[] objects1 : create.select(ORDER_CONTRACT.IDORDER, ORDER_CONTRACT.DATE).from(ORDER_CONTRACT).fetchArrays()) {
             arrayList.add(objects1[0] + " " + objects1[1]);
@@ -183,6 +188,71 @@ public class SentForm extends JPanel implements Fill {
         }
     }
 
+    private void comboBox3ActionPerformed(ActionEvent e) {
+        String[] strings = comboBox3.getSelectedItem().toString().split(" ");
+        textField5.setText(strings[0]);
+        textField5.setBackground(Color.white);
+    }
+
+    private void textField5KeyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        textField5.setBackground(Color.white);
+        if (!Character.isDigit(c)) {
+            e.consume();
+        }
+        if (Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE ) {
+            boolean flag = false;
+            String s;
+            for (int i = 0; i < comboBox3.getItemCount(); i++) {
+                String[] split = comboBox3.getItemAt(i).toString().split(" ");
+                if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    s = textField5.getText();
+                    if (split[0].equals(s)) {
+                        comboBox3.setSelectedIndex(i);
+                        textField5.setText(textField5.getText().substring(0, textField5.getText().length()));
+                        flag = true;
+                        break;
+                    }
+                } else {
+                    s = textField5.getText() + c;
+                    if (split[0].equals(s)) {
+                        comboBox3.setSelectedIndex(i);
+                        textField5.setText(textField5.getText().substring(0, textField5.getText().length() - 1));
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (flag == false && !textField5.getText().isEmpty()) {
+                textField5.setBackground(new Color(170, 49, 58));
+            }
+        }
+    }
+
+    private void button5MouseClicked(MouseEvent e) {
+        ResultSet resultSet;
+        if(textField4.getText().isEmpty()) {
+            resultSet = create.select(SENT.IDSENT, SENT.DATE, SENT.IDPRODUCTION, SENT.COUNT, SENT.NUMORDER, CUSTOMER.ADRESS)
+                    .from(SENT)
+                    .leftOuterJoin(ORDER_CONTRACT)
+                    .on(SENT.NUMORDER.equal(ORDER_CONTRACT.IDORDER))
+                    .leftOuterJoin(CUSTOMER)
+                    .on(ORDER_CONTRACT.IDCUSTOMER.equal(CUSTOMER.IDCUSTOMER))
+                    .where(DSL.month(SENT.DATE).equal(monthChooser1.getMonth()+1))
+                    .fetchResultSet();
+        }else{
+            resultSet = create.select(SENT.IDSENT, SENT.DATE, SENT.IDPRODUCTION, SENT.COUNT, SENT.NUMORDER, CUSTOMER.ADRESS)
+                    .from(SENT)
+                    .leftOuterJoin(ORDER_CONTRACT)
+                    .on(SENT.NUMORDER.equal(ORDER_CONTRACT.IDORDER))
+                    .leftOuterJoin(CUSTOMER)
+                    .on(ORDER_CONTRACT.IDCUSTOMER.equal(CUSTOMER.IDCUSTOMER))
+                    .where(DSL.month(SENT.DATE).equal(monthChooser1.getMonth() + 1).and(SENT.IDPRODUCTION.equal(Integer.valueOf(textField5.getText()))))
+                    .fetchResultSet();
+        }
+        Main.mainForm.getTable1().setModel(Main.mainForm.setDBTableModel(resultSet, SENT));
+    }
+
 
 
     private void initComponents() {
@@ -205,6 +275,13 @@ public class SentForm extends JPanel implements Fill {
         button2 = new JButton();
         button3 = new JButton();
         button4 = new JButton();
+        label4 = new JLabel();
+        label8 = new JLabel();
+        monthChooser1 = new JMonthChooser();
+        label9 = new JLabel();
+        comboBox3 = new JComboBox();
+        textField5 = new JTextField();
+        button5 = new JButton();
 
         //======== this ========
         setLayout(new TableLayout(new double[][] {
@@ -217,12 +294,12 @@ public class SentForm extends JPanel implements Fill {
         {
             this2.setLayout(new TableLayout(new double[][] {
                 {TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
-                {TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));
+                {TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));
             ((TableLayout)this2.getLayout()).setHGap(5);
             ((TableLayout)this2.getLayout()).setVGap(5);
 
             //---- label1 ----
-            label1.setText("Sent Form Numeric");
+            label1.setText("Sent Form");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
@@ -345,6 +422,53 @@ public class SentForm extends JPanel implements Fill {
             //---- button4 ----
             button4.setText("Search");
             this2.add(button4, new TableLayoutConstraints(5, 11, 5, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- label4 ----
+            label4.setText("Month report");
+            label4.setFont(new Font("Consolas", Font.BOLD, 20));
+            label4.setForeground(new Color(182, 66, 103));
+            this2.add(label4, new TableLayoutConstraints(2, 12, 3, 12, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
+
+            //---- label8 ----
+            label8.setText("Select month");
+            label8.setForeground(new Color(182, 66, 103));
+            label8.setFont(new Font("Consolas", Font.BOLD, 15));
+            this2.add(label8, new TableLayoutConstraints(0, 13, 0, 13, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(monthChooser1, new TableLayoutConstraints(2, 13, 5, 13, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- label9 ----
+            label9.setText("Id ");
+            label9.setForeground(new Color(182, 66, 103));
+            label9.setFont(new Font("Consolas", Font.BOLD, 15));
+            this2.add(label9, new TableLayoutConstraints(0, 14, 0, 14, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- comboBox3 ----
+            comboBox3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    comboBox3ActionPerformed(e);
+                }
+            });
+            this2.add(comboBox3, new TableLayoutConstraints(2, 14, 3, 14, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- textField5 ----
+            textField5.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    textField5KeyTyped(e);
+                }
+            });
+            this2.add(textField5, new TableLayoutConstraints(4, 14, 5, 14, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+            //---- button5 ----
+            button5.setText("Select");
+            button5.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    button5MouseClicked(e);
+                }
+            });
+            this2.add(button5, new TableLayoutConstraints(5, 15, 5, 15, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         }
         add(this2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -369,6 +493,13 @@ public class SentForm extends JPanel implements Fill {
     private JButton button2;
     private JButton button3;
     private JButton button4;
+    private JLabel label4;
+    private JLabel label8;
+    private JMonthChooser monthChooser1;
+    private JLabel label9;
+    private JComboBox comboBox3;
+    private JTextField textField5;
+    private JButton button5;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     @Override
     public void fill(ArrayList objects) {
