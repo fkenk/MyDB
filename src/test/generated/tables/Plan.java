@@ -11,7 +11,7 @@ package test.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Plan extends org.jooq.impl.TableImpl<test.generated.tables.records.PlanRecord> {
 
-	private static final long serialVersionUID = 1108010369;
+	private static final long serialVersionUID = -1043587874;
 
 	/**
 	 * The singleton instance of <code>kursschema.plan</code>
@@ -27,19 +27,14 @@ public class Plan extends org.jooq.impl.TableImpl<test.generated.tables.records.
 	}
 
 	/**
-	 * The column <code>kursschema.plan.idplan</code>.
-	 */
-	public final org.jooq.TableField<test.generated.tables.records.PlanRecord, java.lang.Integer> IDPLAN = createField("idplan", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
-
-	/**
 	 * The column <code>kursschema.plan.month</code>.
 	 */
-	public final org.jooq.TableField<test.generated.tables.records.PlanRecord, java.lang.Integer> MONTH = createField("month", org.jooq.impl.SQLDataType.INTEGER, this, "");
+	public final org.jooq.TableField<test.generated.tables.records.PlanRecord, java.lang.Integer> MONTH = createField("month", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
 	 * The column <code>kursschema.plan.idProduction</code>.
 	 */
-	public final org.jooq.TableField<test.generated.tables.records.PlanRecord, java.lang.Integer> IDPRODUCTION = createField("idProduction", org.jooq.impl.SQLDataType.INTEGER, this, "");
+	public final org.jooq.TableField<test.generated.tables.records.PlanRecord, java.lang.Integer> IDPRODUCTION = createField("idProduction", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
 	 * The column <code>kursschema.plan.count</code>.
@@ -87,14 +82,6 @@ public class Plan extends org.jooq.impl.TableImpl<test.generated.tables.records.
 	@Override
 	public java.util.List<org.jooq.UniqueKey<test.generated.tables.records.PlanRecord>> getKeys() {
 		return java.util.Arrays.<org.jooq.UniqueKey<test.generated.tables.records.PlanRecord>>asList(test.generated.Keys.KEY_PLAN_PRIMARY);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public java.util.List<org.jooq.ForeignKey<test.generated.tables.records.PlanRecord, ?>> getReferences() {
-		return java.util.Arrays.<org.jooq.ForeignKey<test.generated.tables.records.PlanRecord, ?>>asList(test.generated.Keys.FK_PLAN_PRODUCTS1);
 	}
 
 	/**

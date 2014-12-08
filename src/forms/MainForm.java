@@ -3,6 +3,7 @@ import MAIN.Main;
 import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
+import com.toedter.calendar.*;
 
 import forms.customer.CustomerForm;
 import forms.order.OrderForm;
@@ -248,10 +249,14 @@ public class MainForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        menuBar1 = new JMenuBar();
+        menu1 = new JMenu();
+        menu2 = new JMenu();
         tabbedPane1 = new JTabbedPane();
         scrollPane1 = new JScrollPane();
         table1 = new JTable();
         panel1 = new JPanel();
+        button1 = new JButton();
         popupMenu1 = new JPopupMenu();
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
@@ -262,9 +267,26 @@ public class MainForm extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(new TableLayout(new double[][] {
             {TableLayout.MINIMUM, TableLayout.MINIMUM, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
-            {TableLayout.FILL, 270}}));
+            {TableLayout.FILL, 270, TableLayout.PREFERRED}}));
         ((TableLayout)contentPane.getLayout()).setHGap(5);
         ((TableLayout)contentPane.getLayout()).setVGap(5);
+
+        //======== menuBar1 ========
+        {
+
+            //======== menu1 ========
+            {
+                menu1.setText("Write to file");
+            }
+            menuBar1.add(menu1);
+
+            //======== menu2 ========
+            {
+                menu2.setText(" Year report ");
+            }
+            menuBar1.add(menu2);
+        }
+        setJMenuBar(menuBar1);
 
         //======== tabbedPane1 ========
         {
@@ -301,7 +323,7 @@ public class MainForm extends JFrame {
             });
             scrollPane1.setViewportView(table1);
         }
-        contentPane.add(scrollPane1, new TableLayoutConstraints(2, 0, 4, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        contentPane.add(scrollPane1, new TableLayoutConstraints(2, 0, 4, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         //======== panel1 ========
         {
@@ -312,7 +334,11 @@ public class MainForm extends JFrame {
             ((TableLayout)panel1.getLayout()).setVGap(5);
         }
         contentPane.add(panel1, new TableLayoutConstraints(3, 1, 4, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-        setSize(895, 490);
+
+        //---- button1 ----
+        button1.setText("Year report");
+        contentPane.add(button1, new TableLayoutConstraints(1, 2, 2, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        setSize(1070, 515);
         setLocationRelativeTo(getOwner());
 
         //======== popupMenu1 ========
@@ -346,10 +372,14 @@ public class MainForm extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    private JMenuBar menuBar1;
+    private JMenu menu1;
+    private JMenu menu2;
     private JTabbedPane tabbedPane1;
     private JScrollPane scrollPane1;
     private JTable table1;
     private JPanel panel1;
+    private JButton button1;
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;

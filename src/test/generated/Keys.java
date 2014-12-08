@@ -36,7 +36,6 @@ public class Keys {
 
 	public static final org.jooq.ForeignKey<test.generated.tables.records.OrderContractRecord, test.generated.tables.records.CustomerRecord> FK_ORDER_CONTRACT_CUSTOMER = ForeignKeys0.FK_ORDER_CONTRACT_CUSTOMER;
 	public static final org.jooq.ForeignKey<test.generated.tables.records.OrderContractRecord, test.generated.tables.records.ProductsRecord> FK_ORDER_CONTRACT_PRODUCTS1 = ForeignKeys0.FK_ORDER_CONTRACT_PRODUCTS1;
-	public static final org.jooq.ForeignKey<test.generated.tables.records.PlanRecord, test.generated.tables.records.ProductsRecord> FK_PLAN_PRODUCTS1 = ForeignKeys0.FK_PLAN_PRODUCTS1;
 	public static final org.jooq.ForeignKey<test.generated.tables.records.ProducedRecord, test.generated.tables.records.ProductsRecord> FK_PRODUCED_PRODUCTS1 = ForeignKeys0.FK_PRODUCED_PRODUCTS1;
 	public static final org.jooq.ForeignKey<test.generated.tables.records.SentRecord, test.generated.tables.records.ProductsRecord> FK_SENT_PRODUCTS1 = ForeignKeys0.FK_SENT_PRODUCTS1;
 	public static final org.jooq.ForeignKey<test.generated.tables.records.SentRecord, test.generated.tables.records.OrderContractRecord> FK_SENT_ORDER_CONTRACT1 = ForeignKeys0.FK_SENT_ORDER_CONTRACT1;
@@ -48,7 +47,7 @@ public class Keys {
 	private static class UniqueKeys0 extends org.jooq.impl.AbstractKeys {
 		public static final org.jooq.UniqueKey<test.generated.tables.records.CustomerRecord> KEY_CUSTOMER_PRIMARY = createUniqueKey(test.generated.tables.Customer.CUSTOMER, test.generated.tables.Customer.CUSTOMER.IDCUSTOMER);
 		public static final org.jooq.UniqueKey<test.generated.tables.records.OrderContractRecord> KEY_ORDER_CONTRACT_PRIMARY = createUniqueKey(test.generated.tables.OrderContract.ORDER_CONTRACT, test.generated.tables.OrderContract.ORDER_CONTRACT.IDORDER);
-		public static final org.jooq.UniqueKey<test.generated.tables.records.PlanRecord> KEY_PLAN_PRIMARY = createUniqueKey(test.generated.tables.Plan.PLAN, test.generated.tables.Plan.PLAN.IDPLAN);
+		public static final org.jooq.UniqueKey<test.generated.tables.records.PlanRecord> KEY_PLAN_PRIMARY = createUniqueKey(test.generated.tables.Plan.PLAN, test.generated.tables.Plan.PLAN.MONTH, test.generated.tables.Plan.PLAN.IDPRODUCTION);
 		public static final org.jooq.UniqueKey<test.generated.tables.records.ProducedRecord> KEY_PRODUCED_PRIMARY = createUniqueKey(test.generated.tables.Produced.PRODUCED, test.generated.tables.Produced.PRODUCED.IDPRODUCED);
 		public static final org.jooq.UniqueKey<test.generated.tables.records.ProductsRecord> KEY_PRODUCTS_PRIMARY = createUniqueKey(test.generated.tables.Products.PRODUCTS, test.generated.tables.Products.PRODUCTS.IDPRODUCTS);
 		public static final org.jooq.UniqueKey<test.generated.tables.records.SentRecord> KEY_SENT_PRIMARY = createUniqueKey(test.generated.tables.Sent.SENT, test.generated.tables.Sent.SENT.IDSENT);
@@ -57,7 +56,6 @@ public class Keys {
 	private static class ForeignKeys0 extends org.jooq.impl.AbstractKeys {
 		public static final org.jooq.ForeignKey<test.generated.tables.records.OrderContractRecord, test.generated.tables.records.CustomerRecord> FK_ORDER_CONTRACT_CUSTOMER = createForeignKey(test.generated.Keys.KEY_CUSTOMER_PRIMARY, test.generated.tables.OrderContract.ORDER_CONTRACT, test.generated.tables.OrderContract.ORDER_CONTRACT.IDCUSTOMER);
 		public static final org.jooq.ForeignKey<test.generated.tables.records.OrderContractRecord, test.generated.tables.records.ProductsRecord> FK_ORDER_CONTRACT_PRODUCTS1 = createForeignKey(test.generated.Keys.KEY_PRODUCTS_PRIMARY, test.generated.tables.OrderContract.ORDER_CONTRACT, test.generated.tables.OrderContract.ORDER_CONTRACT.IDPRODUTION);
-		public static final org.jooq.ForeignKey<test.generated.tables.records.PlanRecord, test.generated.tables.records.ProductsRecord> FK_PLAN_PRODUCTS1 = createForeignKey(test.generated.Keys.KEY_PRODUCTS_PRIMARY, test.generated.tables.Plan.PLAN, test.generated.tables.Plan.PLAN.IDPRODUCTION);
 		public static final org.jooq.ForeignKey<test.generated.tables.records.ProducedRecord, test.generated.tables.records.ProductsRecord> FK_PRODUCED_PRODUCTS1 = createForeignKey(test.generated.Keys.KEY_PRODUCTS_PRIMARY, test.generated.tables.Produced.PRODUCED, test.generated.tables.Produced.PRODUCED.IDPRODUCTION);
 		public static final org.jooq.ForeignKey<test.generated.tables.records.SentRecord, test.generated.tables.records.ProductsRecord> FK_SENT_PRODUCTS1 = createForeignKey(test.generated.Keys.KEY_PRODUCTS_PRIMARY, test.generated.tables.Sent.SENT, test.generated.tables.Sent.SENT.IDPRODUCTION);
 		public static final org.jooq.ForeignKey<test.generated.tables.records.SentRecord, test.generated.tables.records.OrderContractRecord> FK_SENT_ORDER_CONTRACT1 = createForeignKey(test.generated.Keys.KEY_ORDER_CONTRACT_PRIMARY, test.generated.tables.Sent.SENT, test.generated.tables.Sent.SENT.NUMORDER);

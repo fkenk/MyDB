@@ -97,6 +97,7 @@ public class OrderForm extends JPanel implements Fill{
     private void comboBox1ActionPerformed(ActionEvent e) {
         String[] strings = comboBox1.getSelectedItem().toString().split(" ");
         textField3.setText(strings[0]);
+        textField3.setBackground(Color.white);
     }
 
     private void button3MouseClicked(MouseEvent e) {
@@ -137,6 +138,7 @@ public class OrderForm extends JPanel implements Fill{
     private void comboBox2ActionPerformed(ActionEvent e) {
         String[] strings = comboBox2.getSelectedItem().toString().split(" ");
         textField4.setText(strings[0]);
+        textField4.setBackground(Color.white);
     }
 
     private void button5MouseClicked(MouseEvent e) {
@@ -229,6 +231,76 @@ public class OrderForm extends JPanel implements Fill{
             e1.printStackTrace();
         }
         colorForColunms();
+    }
+
+    private void textField3KeyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        textField3.setBackground(Color.white);
+        if (!Character.isDigit(c)) {
+            e.consume();
+        }
+        if (Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE ) {
+            boolean flag = false;
+            String s;
+            for (int i = 0; i < comboBox1.getItemCount(); i++) {
+                String[] split = comboBox1.getItemAt(i).toString().split(" ");
+                if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    s = textField3.getText();
+                    if (split[0].equals(s)) {
+                        comboBox1.setSelectedIndex(i);
+                        textField3.setText(textField3.getText().substring(0, textField3.getText().length()));
+                        flag = true;
+                        break;
+                    }
+                } else {
+                    s = textField3.getText() + c;
+                    if (split[0].equals(s)) {
+                        comboBox1.setSelectedIndex(i);
+                        textField3.setText(textField3.getText().substring(0, textField3.getText().length() - 1));
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (flag == false) {
+                textField3.setBackground(new Color(170, 49, 58));
+            }
+        }
+    }
+
+    private void textField4KeyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        textField4.setBackground(Color.white);
+        if (!Character.isDigit(c)) {
+            e.consume();
+        }
+        if (Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE ) {
+            boolean flag = false;
+            String s;
+            for (int i = 0; i < comboBox2.getItemCount(); i++) {
+                String[] split = comboBox2.getItemAt(i).toString().split(" ");
+                if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    s = textField4.getText();
+                    if (split[0].equals(s)) {
+                        comboBox2.setSelectedIndex(i);
+                        textField4.setText(textField4.getText().substring(0, textField4.getText().length()));
+                        flag = true;
+                        break;
+                    }
+                } else {
+                    s = textField4.getText() + c;
+                    if (split[0].equals(s)) {
+                        comboBox2.setSelectedIndex(i);
+                        textField4.setText(textField4.getText().substring(0, textField4.getText().length() - 1));
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (flag == false) {
+                textField4.setBackground(new Color(170, 49, 58));
+            }
+        }
     }
 
     private void initComponents() {
@@ -335,7 +407,7 @@ public class OrderForm extends JPanel implements Fill{
             textField3.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyTyped(KeyEvent e) {
-                    textField1KeyTyped(e);
+                    textField3KeyTyped(e);
                 }
             });
             this2.add(textField3, new TableLayoutConstraints(4, 6, 5, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
@@ -359,7 +431,7 @@ public class OrderForm extends JPanel implements Fill{
             textField4.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyTyped(KeyEvent e) {
-                    textField1KeyTyped(e);
+                    textField4KeyTyped(e);
                 }
             });
             this2.add(textField4, new TableLayoutConstraints(4, 8, 5, 8, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
