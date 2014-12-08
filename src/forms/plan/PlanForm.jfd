@@ -4,14 +4,14 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class info.clearthought.layout.TableLayout ) {
-			"$columnSpecs": "fill, pref"
-			"$rowSpecs": "pref, pref, pref"
+			"$columnSpecs": "fill"
+			"$rowSpecs": "pref"
 			"hGap": 5
 			"vGap": 5
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class info.clearthought.layout.TableLayout ) {
-				"$columnSpecs": "fill, fill, fill, fill, fill, fill, fill, fill, fill, fill"
+				"$columnSpecs": "fill, fill, fill, fill, fill, fill"
 				"$rowSpecs": "pref, pref, pref, pref, pref, pref, pref, pref, pref, pref, pref, pref, pref"
 				"hGap": 5
 				"vGap": 5
@@ -26,8 +26,8 @@ new FormModel {
 						"font.forceValue": true
 					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridX": 3
-					"gridWidth": 4
+					"gridX": 2
+					"gridWidth": 2
 					"vAlign": 1
 					"hAlign": 1
 				} )
@@ -38,45 +38,30 @@ new FormModel {
 					"font": new java.awt.Font( "Consolas", 1, 15 )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 2
-					"gridWidth": 3
+					"gridWidth": 2
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField6"
+					name: "textField1"
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyTyped", "textField1KeyTyped", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridX": 3
+					"gridX": 2
 					"gridY": 2
 					"gridWidth": 4
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label3"
-					"text": "Date"
+					"text": "Month"
 					"foreground": &Color0 new java.awt.Color( 182, 66, 103, 255 )
 					"font": &Font0 new java.awt.Font( "Consolas", 1, 15 )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 4
-					"gridWidth": 3
-				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField7"
-				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 4
-					"gridX": 3
-					"gridWidth": 4
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label7"
-					"text": "Id customer"
-					"foreground": #Color0
-					"font": #Font0
-				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 6
 					"gridWidth": 2
 				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField8"
+				add( new FormComponent( "com.toedter.calendar.JMonthChooser" ) {
+					name: "monthChooser1"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 6
-					"gridX": 3
+					"gridX": 2
+					"gridY": 4
 					"gridWidth": 4
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
@@ -85,15 +70,24 @@ new FormModel {
 					"foreground": #Color0
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 8
+					"gridY": 6
+					"gridWidth": 2
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboBox1"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "comboBox1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+					"gridX": 2
+					"gridY": 6
 					"gridWidth": 2
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField9"
+					name: "textField2"
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyTyped", "textField1KeyTyped", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 8
-					"gridX": 3
-					"gridWidth": 4
+					"gridY": 6
+					"gridX": 4
+					"gridWidth": 2
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label5"
@@ -101,47 +95,42 @@ new FormModel {
 					"foreground": #Color0
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 10
-					"gridWidth": 3
-				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField10"
-				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 10
-					"gridX": 3
-					"gridWidth": 4
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label6"
-					"text": "Month deliver"
-					"foreground": #Color0
-					"font": #Font0
-				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 12
+					"gridY": 8
 					"gridWidth": 2
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField11"
+					name: "textField3"
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyTyped", "textField1KeyTyped", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridY": 12
-					"gridX": 3
+					"gridY": 8
+					"gridX": 2
 					"gridWidth": 4
 				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "Add"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+					"gridY": 9
+					"gridX": 3
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button2"
+					"text": "Delete"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button2MouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+					"gridY": 9
+					"gridX": 4
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button3"
+					"text": "Update"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button3MouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+					"gridX": 5
+					"gridY": 9
+				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
-				"text": "Add"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-				"gridY": 1
-				"gridWidth": 2
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
-				"text": "Delete"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-				"gridY": 2
-				"gridWidth": 2
-			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 675, 395 )

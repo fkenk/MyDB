@@ -11,7 +11,7 @@ package test.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sent extends org.jooq.impl.TableImpl<test.generated.tables.records.SentRecord> {
 
-	private static final long serialVersionUID = -585667088;
+	private static final long serialVersionUID = -17668811;
 
 	/**
 	 * The singleton instance of <code>kursschema.sent</code>
@@ -29,7 +29,7 @@ public class Sent extends org.jooq.impl.TableImpl<test.generated.tables.records.
 	/**
 	 * The column <code>kursschema.sent.idsent</code>.
 	 */
-	public final org.jooq.TableField<test.generated.tables.records.SentRecord, java.lang.Integer> IDSENT = createField("idsent", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaulted(true), this, "");
+	public final org.jooq.TableField<test.generated.tables.records.SentRecord, java.lang.Integer> IDSENT = createField("idsent", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
 	 * The column <code>kursschema.sent.date</code>.

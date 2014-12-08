@@ -6,6 +6,7 @@ import javax.swing.event.*;
 
 import forms.customer.CustomerForm;
 import forms.order.OrderForm;
+import forms.plan.PlanForm;
 import forms.produced.ProducedForm;
 import forms.products.ProductsForm;
 import forms.sent.SentForm;
@@ -40,6 +41,7 @@ public class MainForm extends JFrame {
     private static Table currTable;
     CustomerForm customerForm = new CustomerForm();
     ProductsForm productsForm = new ProductsForm();
+    PlanForm planForm = new PlanForm();
     ProducedForm producedForm = new ProducedForm();
     SentForm sentForm = new SentForm();
     OrderForm orderForm = new OrderForm();
@@ -50,6 +52,7 @@ public class MainForm extends JFrame {
         initComponents();
         tabbedPane1.addTab("Customer", customerForm);
         tabbedPane1.addTab("Product", productsForm);
+        tabbedPane1.addTab("Plan", planForm);
         tabbedPane1.addTab("Produced",producedForm);
         tabbedPane1.addTab("Sent",sentForm);
         tabbedPane1.addTab("Order",orderForm);
@@ -79,14 +82,19 @@ public class MainForm extends JFrame {
             table1.setModel(setDBTableModel(productsForm.productsSelect(), PRODUCTS));
         }
         if(tabbedPane1.getSelectedIndex() == 2) {
+            table1.setModel(setDBTableModel(planForm.planInnerJoin(), PLAN));
+            planForm.updateComboBoxes();
+            planForm.colorForColunms();
+        }
+        if(tabbedPane1.getSelectedIndex() == 3) {
             table1.setModel(setDBTableModel(producedForm.producedInnerJoin(), PRODUCED));
             producedForm.updateComboBoxes();
         }
-        if(tabbedPane1.getSelectedIndex() == 3) {
+        if(tabbedPane1.getSelectedIndex() == 4) {
             table1.setModel(setDBTableModel(sentForm.sentInnerJoin(), SENT));
             sentForm.updateComboBoxes();
         }
-        if(tabbedPane1.getSelectedIndex() == 4) {
+        if(tabbedPane1.getSelectedIndex() == 5) {
             table1.setModel(setDBTableModel(orderForm.orderInnerJoin(), ORDER_CONTRACT));
             orderForm.updateComboBoxes();
             orderForm.colorForColunms();
@@ -195,14 +203,18 @@ public class MainForm extends JFrame {
         }
         else
         if(tabbedPane1.getSelectedIndex() == 2) {
-            producedForm.fill(objects);
+            planForm.fill(objects);
         }
         else
         if(tabbedPane1.getSelectedIndex() == 3) {
-            sentForm.fill(objects);
+            producedForm.fill(objects);
         }
         else
         if(tabbedPane1.getSelectedIndex() == 4) {
+            sentForm.fill(objects);
+        }
+        else
+        if(tabbedPane1.getSelectedIndex() == 5) {
             orderForm.fill(objects);
         }
         objects.clear();

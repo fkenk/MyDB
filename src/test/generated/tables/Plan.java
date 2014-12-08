@@ -11,7 +11,7 @@ package test.generated.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Plan extends org.jooq.impl.TableImpl<test.generated.tables.records.PlanRecord> {
 
-	private static final long serialVersionUID = 1325872360;
+	private static final long serialVersionUID = 1108010369;
 
 	/**
 	 * The singleton instance of <code>kursschema.plan</code>
@@ -47,9 +47,9 @@ public class Plan extends org.jooq.impl.TableImpl<test.generated.tables.records.
 	public final org.jooq.TableField<test.generated.tables.records.PlanRecord, java.lang.Integer> COUNT = createField("count", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * The column <code>kursschema.plan.numOrder</code>.
+	 * The column <code>kursschema.plan.percent</code>.
 	 */
-	public final org.jooq.TableField<test.generated.tables.records.PlanRecord, java.lang.Integer> NUMORDER = createField("numOrder", org.jooq.impl.SQLDataType.INTEGER, this, "");
+	public final org.jooq.TableField<test.generated.tables.records.PlanRecord, java.lang.Double> PERCENT = createField("percent", org.jooq.impl.SQLDataType.DOUBLE.defaulted(true), this, "");
 
 	/**
 	 * Create a <code>kursschema.plan</code> table reference
@@ -94,7 +94,7 @@ public class Plan extends org.jooq.impl.TableImpl<test.generated.tables.records.
 	 */
 	@Override
 	public java.util.List<org.jooq.ForeignKey<test.generated.tables.records.PlanRecord, ?>> getReferences() {
-		return java.util.Arrays.<org.jooq.ForeignKey<test.generated.tables.records.PlanRecord, ?>>asList(test.generated.Keys.FK_PLAN_PRODUCTS1, test.generated.Keys.FK_PLAN_ORDER_CONTRACT1);
+		return java.util.Arrays.<org.jooq.ForeignKey<test.generated.tables.records.PlanRecord, ?>>asList(test.generated.Keys.FK_PLAN_PRODUCTS1);
 	}
 
 	/**

@@ -601,11 +601,10 @@
       <column name="idProdution" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="monthDeliver" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="percent" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="percent" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8" def="MA=="/>
       <primary-key name="PRIMARY" columns="idOrder"/>
-      <foreign-key name="fk_order_contract_customer" columns="idCustomer" ref-table="customer" ref-schema="" ref-catalog="kursschema" ref-columns="idCustomer" update-rule="0" delete-rule="2" deferrability="2"/>
-      <foreign-key name="fk_order_contract_products1" columns="idProdution" ref-table="products" ref-schema="" ref-catalog="kursschema" ref-columns="idProducts" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="fk_plan_order_contract1" table="plan" schema="" catalog="kursschema" columns="numOrder"/>
+      <foreign-key name="fk_order_contract_customer" columns="idCustomer" ref-table="customer" ref-schema="" ref-catalog="kursschema" ref-columns="idCustomer" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_order_contract_products1" columns="idProdution" ref-table="products" ref-schema="" ref-catalog="kursschema" ref-columns="idProducts" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="fk_sent_order_contract1" table="sent" schema="" catalog="kursschema" columns="numOrder"/>
       <index name="fk_order_contract_customer_idx" unique="false" columns="idCustomer"/>
       <index name="fk_order_contract_production_idx" unique="false" columns="idProdution"/>
@@ -615,11 +614,9 @@
       <column name="month" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="idProduction" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="numOrder" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="percent" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8" def="MA=="/>
       <primary-key name="PRIMARY" columns="idplan"/>
-      <foreign-key name="fk_plan_order_contract1" columns="numOrder" ref-table="order_contract" ref-schema="" ref-catalog="kursschema" ref-columns="idOrder" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_plan_products1" columns="idProduction" ref-table="products" ref-schema="" ref-catalog="kursschema" ref-columns="idProducts" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="fk_plan_order_contract1_idx" unique="false" columns="numOrder"/>
       <index name="fk_plan_products1_idx" unique="false" columns="idProduction"/>
     </table>
     <table name="produced" schema="" catalog="kursschema" type="TABLE">
@@ -642,7 +639,7 @@
       <exported-key name="fk_sent_products1" table="sent" schema="" catalog="kursschema" columns="idProduction"/>
     </table>
     <table name="sent" schema="" catalog="kursschema" type="TABLE">
-      <column name="idsent" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="idsent" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="idProduction" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
@@ -2332,7 +2329,7 @@
     </table>
   </data-source>
   <data-source name="MySQL - kr@localhost" uuid="86d6e4c8-bbdd-4ddd-b9d5-84d3d148a9b2">
-    <database-info product="MySQL" version="5.5.40" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.31 ( Revision: alexander.soklakov@oracle.com-20140520065950-groqzzbvxprqdmnz )">
+    <database-info product="MySQL" version="5.5.40" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
@@ -2341,6 +2338,8 @@
     <schema name="" catalog="kr"/>
     <schema name="" catalog="kursschema"/>
     <schema name="" catalog="lab4"/>
+    <schema name="" catalog="lab4_a"/>
+    <schema name="" catalog="mydb"/>
     <schema name="" catalog="mysql"/>
     <schema name="" catalog="performance_schema"/>
     <schema name="" catalog="test"/>
@@ -2930,10 +2929,10 @@
       <column name="idProdution" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="monthDeliver" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="percent" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8" def="MA=="/>
       <primary-key name="PRIMARY" columns="idOrder"/>
-      <foreign-key name="fk_order_contract_customer" columns="idCustomer" ref-table="customer" ref-schema="" ref-catalog="kursschema" ref-columns="idCustomer" update-rule="3" delete-rule="2" deferrability="2"/>
-      <foreign-key name="fk_order_contract_products1" columns="idProdution" ref-table="products" ref-schema="" ref-catalog="kursschema" ref-columns="idProducts" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="fk_plan_order_contract1" table="plan" schema="" catalog="kursschema" columns="numOrder"/>
+      <foreign-key name="fk_order_contract_customer" columns="idCustomer" ref-table="customer" ref-schema="" ref-catalog="kursschema" ref-columns="idCustomer" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_order_contract_products1" columns="idProdution" ref-table="products" ref-schema="" ref-catalog="kursschema" ref-columns="idProducts" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="fk_sent_order_contract1" table="sent" schema="" catalog="kursschema" columns="numOrder"/>
       <index name="fk_order_contract_customer_idx" unique="false" columns="idCustomer"/>
       <index name="fk_order_contract_production_idx" unique="false" columns="idProdution"/>
@@ -2943,11 +2942,9 @@
       <column name="month" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="idProduction" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="numOrder" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="percent" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8" def="MA=="/>
       <primary-key name="PRIMARY" columns="idplan"/>
-      <foreign-key name="fk_plan_order_contract1" columns="numOrder" ref-table="order_contract" ref-schema="" ref-catalog="kursschema" ref-columns="idOrder" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_plan_products1" columns="idProduction" ref-table="products" ref-schema="" ref-catalog="kursschema" ref-columns="idProducts" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="fk_plan_order_contract1_idx" unique="false" columns="numOrder"/>
       <index name="fk_plan_products1_idx" unique="false" columns="idProduction"/>
     </table>
     <table name="produced" schema="" catalog="kursschema" type="TABLE">
@@ -2970,7 +2967,7 @@
       <exported-key name="fk_sent_products1" table="sent" schema="" catalog="kursschema" columns="idProduction"/>
     </table>
     <table name="sent" schema="" catalog="kursschema" type="TABLE">
-      <column name="idsent" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="idsent" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="idProduction" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
@@ -2980,6 +2977,14 @@
       <foreign-key name="fk_sent_products1" columns="idProduction" ref-table="products" ref-schema="" ref-catalog="kursschema" ref-columns="idProducts" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="fk_sent_order_contract1_idx" unique="false" columns="numOrder"/>
       <index name="fk_sent_products1_idx" unique="false" columns="idProduction"/>
+    </table>
+    <table name="vcustomer" schema="" catalog="kursschema" type="VIEW">
+      <column name="idCustomer" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="vcustomer2" schema="" catalog="kursschema" type="VIEW">
+      <column name="idCustomer" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
     </table>
     <table name="bachelor" schema="" catalog="lab4" type="TABLE">
       <column name="code" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
@@ -3024,6 +3029,64 @@
       <index name="fk_student_bachelor1_idx" unique="false" columns="codeBachelor"/>
       <index name="fk_student_faculty1_idx" unique="false" columns="codeFaculty"/>
       <index name="fk_student_specialty_idx" unique="false" columns="codeSpecialty"/>
+    </table>
+    <table name="dogovor" schema="" catalog="lab4_a" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="id_zam" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="id_tovar" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <foreign-key name="fk_id_tovar" columns="id_tovar" ref-table="tovar" ref-schema="" ref-catalog="lab4_a" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_id_zam" columns="id_zam" ref-table="zamovnuk" ref-schema="" ref-catalog="lab4_a" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="tovar" schema="" catalog="lab4_a" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="price" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_id_tovar" table="dogovor" schema="" catalog="lab4_a" columns="id_tovar"/>
+    </table>
+    <table name="zamovnuk" schema="" catalog="lab4_a" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_id_zam" table="dogovor" schema="" catalog="lab4_a" columns="id_zam"/>
+    </table>
+    <table name="archive" schema="" catalog="mydb" type="TABLE">
+      <column name="month_id" sqlType="VARCHAR" precision="7" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="worker_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="calc_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="sum" sqlType="DOUBLE UNSIGNED" precision="22" scale="0" nullable="false" jdbcType="8"/>
+    </table>
+    <table name="calc" schema="" catalog="mydb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="value" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_calc" table="month" schema="" catalog="mydb" columns="calc_and_hold"/>
+    </table>
+    <table name="department" schema="" catalog="mydb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="value" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_department" table="list_workers" schema="" catalog="mydb" columns="department"/>
+    </table>
+    <table name="list_workers" schema="" catalog="mydb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fio" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="department" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_department" columns="department" ref-table="department" ref-schema="" ref-catalog="mydb" ref-columns="id" update-rule="0" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_worker" table="month" schema="" catalog="mydb" columns="worker_id"/>
+      <index name="department_idx" unique="false" columns="department"/>
+    </table>
+    <table name="month" schema="" catalog="mydb" type="TABLE">
+      <column name="worker_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="calc_and_hold" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="sum_calc" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <foreign-key name="fk_calc" columns="calc_and_hold" ref-table="calc" ref-schema="" ref-catalog="mydb" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_worker" columns="worker_id" ref-table="list_workers" ref-schema="" ref-catalog="mydb" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="calc_and_hold_idx" unique="false" columns="calc_and_hold"/>
+      <index name="worker_id_idx" unique="false" columns="worker_id"/>
     </table>
     <table name="columns_priv" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
@@ -3464,5 +3527,10 @@
       <column name="PROCESSLIST_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="NAME" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
     </table>
+    <procedure name="minOfOrderedProduct" schema="" catalog="kursschema" type="1">
+      <prototype>
+        <parameter name="min" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
+      </prototype>
+    </procedure>
   </data-source>
 </component>
