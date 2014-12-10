@@ -315,6 +315,8 @@ public class ProducedForm extends JPanel implements Fill {
         }
     }
 
+
+
     public ResultSet producedInnerJoin() {
         return create.select(PRODUCED.IDPRODUCED, PRODUCED.DATE,PRODUCED.IDPRODUCTION, PRODUCTS.NAME, PRODUCED.COUNT)
                 .from(PRODUCED)

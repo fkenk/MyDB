@@ -395,6 +395,8 @@ public class PlanForm extends JPanel implements Fill{
 
     }
 
+
+
     public void updateComboBoxes() {
         ArrayList arrayList = new ArrayList();
         arrayList.clear();

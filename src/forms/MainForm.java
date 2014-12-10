@@ -10,6 +10,7 @@ import forms.order.OrderForm;
 import forms.plan.PlanForm;
 import forms.produced.ProducedForm;
 import forms.products.ProductsForm;
+import forms.search.Search;
 import forms.sent.SentForm;
 import info.clearthought.layout.*;
 import org.jooq.*;
@@ -28,6 +29,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.*;
+import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 /*
  * Created by JFormDesigner on Fri Nov 07 17:21:10 EET 2014
  */
@@ -40,13 +48,15 @@ public class MainForm extends JFrame {
     private Object oldID;
     DatabaseTableModel databaseTableModel = new DatabaseTableModel();
     private int selectedRow;
-    private static Table currTable;
-    CustomerForm customerForm = new CustomerForm();
-    ProductsForm productsForm = new ProductsForm();
-    PlanForm planForm = new PlanForm();
-    ProducedForm producedForm = new ProducedForm();
-    SentForm sentForm = new SentForm();
-    OrderForm orderForm = new OrderForm();
+    public static Table currTable;
+    private TableRowSorter<TableModel> rowSorter;
+
+    private CustomerForm customerForm = new CustomerForm();
+    private ProductsForm productsForm = new ProductsForm();
+    private PlanForm planForm = new PlanForm();
+    private ProducedForm producedForm = new ProducedForm();
+    private SentForm sentForm = new SentForm();
+    private OrderForm orderForm = new OrderForm();
     private ArrayList<Object> objects = new ArrayList<Object>();
 
     private DSLContext create = DSL.using(DBConnect.getConnect(), SQLDialect.MYSQL);
@@ -60,6 +70,9 @@ public class MainForm extends JFrame {
         tabbedPane1.addTab("Order",orderForm);
         table1.setColumnSelectionInterval(table1.getColumnCount()-1,table1.getColumnCount()-1);
         table1.setRowSelectionInterval(table1.getRowCount()-1, table1.getRowCount()-1);
+        panel2.add(new Search(),new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        panel2.validate();
+
         //TableCellListener tcl;
         //tcl = new TableCellListener(table1, actionTable());
     }
@@ -101,6 +114,13 @@ public class MainForm extends JFrame {
             orderForm.updateComboBoxes();
             orderForm.colorForColunms();
         }
+        rowSorter = new TableRowSorter(table1.getModel());
+        table1.setRowSorter(rowSorter);
+    }
+
+
+    public TableRowSorter<TableModel> getRowSorter() {
+        return rowSorter;
     }
 
     public JTable getTable1() {
@@ -224,7 +244,7 @@ public class MainForm extends JFrame {
 
     private void menuItem3ActionPerformed(ActionEvent e) {
         int customerID = (Integer)table1.getValueAt(selectedRow,0);
-        tabbedPane1.setSelectedIndex(4);
+        tabbedPane1.setSelectedIndex(5);
         ResultSet resultSet = create.select(ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER, CUSTOMER.NAME,ORDER_CONTRACT.IDPRODUTION, PRODUCTS.NAME,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER, ORDER_CONTRACT.PERCENT)
                 .from(ORDER_CONTRACT)
                 .leftOuterJoin(CUSTOMER)
@@ -262,7 +282,7 @@ public class MainForm extends JFrame {
         try
         {
             java.util.Locale en = new java.util.Locale("en");
-            String header = table1.getName().toString();
+            String header = currTable.getName();
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
             String footer = "Надруковано: "+sdf.format(new Date()) + " (стр.{0})";
             table1.print(javax.swing.JTable.PrintMode.FIT_WIDTH,
@@ -275,6 +295,29 @@ public class MainForm extends JFrame {
         }
     }
 
+    public CustomerForm getCustomerForm() {
+        return customerForm;
+    }
+
+    public ProductsForm getProductsForm() {
+        return productsForm;
+    }
+
+    public PlanForm getPlanForm() {
+        return planForm;
+    }
+
+    public ProducedForm getProducedForm() {
+        return producedForm;
+    }
+
+    public SentForm getSentForm() {
+        return sentForm;
+    }
+
+    public OrderForm getOrderForm() {
+        return orderForm;
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -286,17 +329,17 @@ public class MainForm extends JFrame {
         scrollPane1 = new JScrollPane();
         table1 = new JTable();
         panel1 = new JPanel();
+        panel2 = new JPanel();
         popupMenu1 = new JPopupMenu();
-        menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
 
         //======== this ========
         setBackground(Color.white);
         Container contentPane = getContentPane();
-        contentPane.setLayout(new TableLayout(new double[][]{
-                {TableLayout.MINIMUM, TableLayout.MINIMUM, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
-                {TableLayout.FILL, 270, TableLayout.PREFERRED}}));
+        contentPane.setLayout(new TableLayout(new double[][] {
+            {TableLayout.MINIMUM, TableLayout.MINIMUM, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
+            {TableLayout.FILL, 270, TableLayout.PREFERRED}}));
         ((TableLayout)contentPane.getLayout()).setHGap(5);
         ((TableLayout)contentPane.getLayout()).setVGap(5);
 
@@ -340,7 +383,7 @@ public class MainForm extends JFrame {
                 }
             });
         }
-        contentPane.add(tabbedPane1, new TableLayoutConstraints(0, 0, 1, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        contentPane.add(tabbedPane1, new TableLayoutConstraints(0, 0, 1, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         //======== scrollPane1 ========
         {
@@ -377,15 +420,21 @@ public class MainForm extends JFrame {
             ((TableLayout)panel1.getLayout()).setVGap(5);
         }
         contentPane.add(panel1, new TableLayoutConstraints(3, 1, 4, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+        //======== panel2 ========
+        {
+            panel2.setLayout(new TableLayout(new double[][] {
+                {TableLayout.FILL},
+                {TableLayout.PREFERRED}}));
+            ((TableLayout)panel2.getLayout()).setHGap(5);
+            ((TableLayout)panel2.getLayout()).setVGap(5);
+        }
+        contentPane.add(panel2, new TableLayoutConstraints(0, 2, 1, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         setSize(1070, 515);
         setLocationRelativeTo(getOwner());
 
         //======== popupMenu1 ========
         {
-
-            //---- menuItem1 ----
-            menuItem1.setText("text");
-            popupMenu1.add(menuItem1);
 
             //---- menuItem2 ----
             menuItem2.setText("Delete Row");
@@ -419,8 +468,8 @@ public class MainForm extends JFrame {
     private JScrollPane scrollPane1;
     private JTable table1;
     private JPanel panel1;
+    private JPanel panel2;
     private JPopupMenu popupMenu1;
-    private JMenuItem menuItem1;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

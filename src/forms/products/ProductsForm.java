@@ -209,6 +209,7 @@ public class ProductsForm extends JPanel implements Fill {
         textField3.setText(String.valueOf(objects.get(2)));
     }
 
+
     public ResultSet productsSelect() {
         return create.select().from(PRODUCTS).fetchResultSet();
     }

@@ -17,7 +17,7 @@ new FormModel {
 				addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "tabbedPane1StateChanged", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 				"gridWidth": 2
-				"gridHeight": 3
+				"gridHeight": 2
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
@@ -85,6 +85,17 @@ new FormModel {
 				"gridY": 1
 				"gridWidth": 2
 			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class info.clearthought.layout.TableLayout ) {
+				"$columnSpecs": "fill"
+				"$rowSpecs": "pref"
+				"hGap": 5
+				"vGap": 5
+			} ) {
+				name: "panel2"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
+				"gridY": 2
+				"gridWidth": 2
+			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
@@ -108,10 +119,6 @@ new FormModel {
 		} )
 		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
 			name: "popupMenu1"
-			add( new FormComponent( "javax.swing.JMenuItem" ) {
-				name: "menuItem1"
-				"text": "text"
-			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItem2"
 				"text": "Delete Row"
