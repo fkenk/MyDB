@@ -18,6 +18,7 @@ import connect.*;
 
 import static test.generated.Tables.*;
 import java.awt.*;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -247,16 +248,44 @@ public class MainForm extends JFrame {
         this.updateTable();
     }
 
+    private void menuItem5ActionPerformed(ActionEvent e) {
+        try {
+            ExcelExporter.writeToExcell(table1,"qwe.xls");
+            System.out.println("dsfsdf");
+        } catch (IOException e1) {
+            System.out.println(e1);
+        }
+
+    }
+
+    private void menuItem4ActionPerformed(ActionEvent e) {
+        try
+        {
+            java.util.Locale en = new java.util.Locale("en");
+            String header = table1.getName().toString();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+            String footer = "Надруковано: "+sdf.format(new Date()) + " (стр.{0})";
+            table1.print(javax.swing.JTable.PrintMode.FIT_WIDTH,
+                    new java.text.MessageFormat(header, en),
+                    new java.text.MessageFormat(footer, en));
+        }
+        catch (Exception e1) {
+            System.out.println(e1);
+            JOptionPane.showMessageDialog(null,"Error while print");
+        }
+    }
+
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar1 = new JMenuBar();
         menu1 = new JMenu();
-        menu2 = new JMenu();
+        menuItem4 = new JMenuItem();
+        menuItem5 = new JMenuItem();
         tabbedPane1 = new JTabbedPane();
         scrollPane1 = new JScrollPane();
         table1 = new JTable();
         panel1 = new JPanel();
-        button1 = new JButton();
         popupMenu1 = new JPopupMenu();
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
@@ -265,9 +294,9 @@ public class MainForm extends JFrame {
         //======== this ========
         setBackground(Color.white);
         Container contentPane = getContentPane();
-        contentPane.setLayout(new TableLayout(new double[][] {
-            {TableLayout.MINIMUM, TableLayout.MINIMUM, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
-            {TableLayout.FILL, 270, TableLayout.PREFERRED}}));
+        contentPane.setLayout(new TableLayout(new double[][]{
+                {TableLayout.MINIMUM, TableLayout.MINIMUM, TableLayout.FILL, TableLayout.FILL, TableLayout.FILL},
+                {TableLayout.FILL, 270, TableLayout.PREFERRED}}));
         ((TableLayout)contentPane.getLayout()).setHGap(5);
         ((TableLayout)contentPane.getLayout()).setVGap(5);
 
@@ -276,15 +305,29 @@ public class MainForm extends JFrame {
 
             //======== menu1 ========
             {
-                menu1.setText("Write to file");
+                menu1.setText("Export");
+
+                //---- menuItem4 ----
+                menuItem4.setText("Print");
+                menuItem4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem4ActionPerformed(e);
+                    }
+                });
+                menu1.add(menuItem4);
+
+                //---- menuItem5 ----
+                menuItem5.setText("To Exel");
+                menuItem5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem5ActionPerformed(e);
+                    }
+                });
+                menu1.add(menuItem5);
             }
             menuBar1.add(menu1);
-
-            //======== menu2 ========
-            {
-                menu2.setText(" Year report ");
-            }
-            menuBar1.add(menu2);
         }
         setJMenuBar(menuBar1);
 
@@ -297,7 +340,7 @@ public class MainForm extends JFrame {
                 }
             });
         }
-        contentPane.add(tabbedPane1, new TableLayoutConstraints(0, 0, 1, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        contentPane.add(tabbedPane1, new TableLayoutConstraints(0, 0, 1, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         //======== scrollPane1 ========
         {
@@ -334,10 +377,6 @@ public class MainForm extends JFrame {
             ((TableLayout)panel1.getLayout()).setVGap(5);
         }
         contentPane.add(panel1, new TableLayoutConstraints(3, 1, 4, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
-        //---- button1 ----
-        button1.setText("Year report");
-        contentPane.add(button1, new TableLayoutConstraints(1, 2, 2, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         setSize(1070, 515);
         setLocationRelativeTo(getOwner());
 
@@ -374,12 +413,12 @@ public class MainForm extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JMenuBar menuBar1;
     private JMenu menu1;
-    private JMenu menu2;
+    private JMenuItem menuItem4;
+    private JMenuItem menuItem5;
     private JTabbedPane tabbedPane1;
     private JScrollPane scrollPane1;
     private JTable table1;
     private JPanel panel1;
-    private JButton button1;
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;

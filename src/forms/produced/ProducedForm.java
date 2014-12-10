@@ -155,7 +155,6 @@ public class ProducedForm extends JPanel implements Fill {
         button1 = new JButton();
         button2 = new JButton();
         button3 = new JButton();
-        button4 = new JButton();
 
         //======== this ========
         setLayout(new TableLayout(new double[][] {
@@ -173,7 +172,7 @@ public class ProducedForm extends JPanel implements Fill {
             ((TableLayout)this2.getLayout()).setVGap(5);
 
             //---- label1 ----
-            label1.setText("Produced Form Numeric");
+            label1.setText("Produced Form");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));
@@ -250,7 +249,7 @@ public class ProducedForm extends JPanel implements Fill {
                     button1MouseClicked(e);
                 }
             });
-            this2.add(button1, new TableLayoutConstraints(2, 9, 2, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button1, new TableLayoutConstraints(3, 9, 3, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button2 ----
             button2.setText("Delete");
@@ -260,7 +259,7 @@ public class ProducedForm extends JPanel implements Fill {
                     button2MouseClicked(e);
                 }
             });
-            this2.add(button2, new TableLayoutConstraints(3, 9, 3, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button2, new TableLayoutConstraints(4, 9, 4, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button3 ----
             button3.setText("Update");
@@ -270,11 +269,7 @@ public class ProducedForm extends JPanel implements Fill {
                     button3MouseClicked(e);
                 }
             });
-            this2.add(button3, new TableLayoutConstraints(4, 9, 4, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
-            //---- button4 ----
-            button4.setText("Search");
-            this2.add(button4, new TableLayoutConstraints(5, 9, 5, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button3, new TableLayoutConstraints(5, 9, 5, 9, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         }
         add(this2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -295,7 +290,6 @@ public class ProducedForm extends JPanel implements Fill {
     private JButton button1;
     private JButton button2;
     private JButton button3;
-    private JButton button4;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Override

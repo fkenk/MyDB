@@ -274,7 +274,6 @@ public class SentForm extends JPanel implements Fill {
         button1 = new JButton();
         button2 = new JButton();
         button3 = new JButton();
-        button4 = new JButton();
         label4 = new JLabel();
         label8 = new JLabel();
         monthChooser1 = new JMonthChooser();
@@ -397,7 +396,7 @@ public class SentForm extends JPanel implements Fill {
                     button1MouseClicked(e);
                 }
             });
-            this2.add(button1, new TableLayoutConstraints(2, 11, 2, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button1, new TableLayoutConstraints(3, 11, 3, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button2 ----
             button2.setText("Delete");
@@ -407,7 +406,7 @@ public class SentForm extends JPanel implements Fill {
                     button2MouseClicked(e);
                 }
             });
-            this2.add(button2, new TableLayoutConstraints(3, 11, 3, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button2, new TableLayoutConstraints(4, 11, 4, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button3 ----
             button3.setText("Update");
@@ -417,11 +416,7 @@ public class SentForm extends JPanel implements Fill {
                     button3MouseClicked(e);
                 }
             });
-            this2.add(button3, new TableLayoutConstraints(4, 11, 4, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
-            //---- button4 ----
-            button4.setText("Search");
-            this2.add(button4, new TableLayoutConstraints(5, 11, 5, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button3, new TableLayoutConstraints(5, 11, 5, 11, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- label4 ----
             label4.setText("Month report");
@@ -492,7 +487,6 @@ public class SentForm extends JPanel implements Fill {
     private JButton button1;
     private JButton button2;
     private JButton button3;
-    private JButton button4;
     private JLabel label4;
     private JLabel label8;
     private JMonthChooser monthChooser1;

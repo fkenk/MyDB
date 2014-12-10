@@ -15,20 +15,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
 import MAIN.Main;
+import com.sun.prism.impl.Disposer;
 import com.toedter.calendar.*;
 import connect.DBConnect;
 import connect.DatabaseTableModel;
 import forms.Fill;
 import info.clearthought.layout.*;
 import org.freixas.jcalendar.*;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
+import org.jooq.*;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
+import test.generated.tables.records.OrderContractRecord;
 
-import static test.generated.Tables.CUSTOMER;
-import static test.generated.Tables.ORDER_CONTRACT;
-import static test.generated.Tables.PRODUCTS;
+import static test.generated.Tables.*;
 
 /**
  * @author ad ad
@@ -46,20 +45,26 @@ public class OrderForm extends JPanel implements Fill{
             create.insertInto(ORDER_CONTRACT,ORDER_CONTRACT.IDORDER,ORDER_CONTRACT.DATE,ORDER_CONTRACT.IDCUSTOMER,ORDER_CONTRACT.IDPRODUTION,ORDER_CONTRACT.COUNT,ORDER_CONTRACT.MONTHDELIVER).
                     values(Integer.parseInt(textField1.getText()), sqlDate, Integer.parseInt(textField3.getText()), Integer.parseInt(textField4.getText()), Integer.parseInt(textField5.getText()), monthChooser1.getMonth() + 1).
                     execute();
+
         }catch (DataAccessException exp){
-            JOptionPane.showMessageDialog(Main.mainForm,"Duplicate key!");
+            JOptionPane.showMessageDialog(Main.mainForm, "Duplicate key");
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm,"Fill some data!");
         }
+        //int cou = create.select(DSL.sum(SENT.COUNT)).from(SENT).where(SENT.NUMORDER.equal(Integer.parseInt(textField1.getText()))).execute();
+        //create.update(ORDER_CONTRACT).set(ORDER_CONTRACT.PERCENT, (double)((cou*100)/Integer.parseInt(textField5.getText())));
         Main.mainForm.updateTable();
     }
 
     private void button2MouseClicked(MouseEvent e) {
+
         try {
             create.delete(ORDER_CONTRACT).where(ORDER_CONTRACT.IDORDER.equal(Integer.parseInt(textField1.getText()))).execute();
         }catch (NumberFormatException exp) {
             JOptionPane.showMessageDialog(Main.mainForm, "Input ID for delete!");
         }
+
+
         Main.mainForm.updateTable();
     }
 
@@ -101,6 +106,18 @@ public class OrderForm extends JPanel implements Fill{
     }
 
     private void button3MouseClicked(MouseEvent e) {
+        /*int oldCount = 0;
+        double oldPercent = 0;
+        Result<Record2<Integer, Double>> rs1 =  create.select(ORDER_CONTRACT.COUNT, ORDER_CONTRACT.PERCENT)
+                .from(ORDER_CONTRACT)
+                .where(ORDER_CONTRACT.IDORDER.equal((Integer) Main.mainForm.getTable1().getValueAt(Main.mainForm.getTable1().getSelectedRow(), 0)))
+                .fetch();
+        for (Record2<Integer, Double> r : rs1) {
+            oldCount = r.value1();
+            oldPercent = r.value2();
+        }
+        System.out.println(""+oldCount);
+        System.out.println(oldPercent);*/
         try {
             java.util.Date utilDate = calendarCombo1.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -116,6 +133,26 @@ public class OrderForm extends JPanel implements Fill{
         }catch (NumberFormatException exp){
             JOptionPane.showMessageDialog(Main.mainForm, "Choose row to update!");
         }
+        /*Main.mainForm.updateTable();
+        int newCount = 0;
+        double newPercent;
+        Result<Record1<Integer>> rs2 = create.select(ORDER_CONTRACT.COUNT)
+                .from(ORDER_CONTRACT)
+                .where(ORDER_CONTRACT.IDORDER.equal((Integer) Main.mainForm.getTable1().getValueAt(Main.mainForm.getTable1().getSelectedRow(), 0)))
+                .fetch();
+
+        for (Record1<Integer> r : rs2) {
+            System.out.println(r.value1());
+            newCount = r.value1();
+        }
+        newPercent = (newCount*oldPercent)/oldCount;
+        System.out.println(newCount);
+        System.out.println(newPercent);
+        if(oldCount != newCount) {
+            create.update(ORDER_CONTRACT).set(ORDER_CONTRACT.PERCENT, newPercent)
+                    .where(ORDER_CONTRACT.IDORDER.equal((Integer) Main.mainForm.getTable1().getValueAt(Main.mainForm.getTable1().getSelectedRow(), 0)))
+                    .execute();
+        }*/
         Main.mainForm.updateTable();
     }
 
@@ -358,7 +395,7 @@ public class OrderForm extends JPanel implements Fill{
             ((TableLayout)this2.getLayout()).setVGap(5);
 
             //---- label1 ----
-            label1.setText("Order Form Numeric");
+            label1.setText("Order Form");
             label1.setFont(new Font("Consolas", Font.BOLD, 20));
             label1.setForeground(new Color(182, 66, 103));
             this2.add(label1, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.CENTER, TableLayoutConstraints.CENTER));

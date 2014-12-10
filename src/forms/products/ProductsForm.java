@@ -95,7 +95,6 @@ public class ProductsForm extends JPanel implements Fill {
         button1 = new JButton();
         button2 = new JButton();
         button3 = new JButton();
-        button4 = new JButton();
 
         //======== this ========
         setLayout(new TableLayout(new double[][] {
@@ -163,7 +162,7 @@ public class ProductsForm extends JPanel implements Fill {
                     button1MouseClicked(e);
                 }
             });
-            this2.add(button1, new TableLayoutConstraints(2, 7, 2, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button1, new TableLayoutConstraints(3, 7, 3, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button2 ----
             button2.setText("Delete");
@@ -173,7 +172,7 @@ public class ProductsForm extends JPanel implements Fill {
                     button2MouseClicked(e);
                 }
             });
-            this2.add(button2, new TableLayoutConstraints(3, 7, 3, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button2, new TableLayoutConstraints(4, 7, 4, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
             //---- button3 ----
             button3.setText("Update");
@@ -183,11 +182,7 @@ public class ProductsForm extends JPanel implements Fill {
                     button3MouseClicked(e);
                 }
             });
-            this2.add(button3, new TableLayoutConstraints(4, 7, 4, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
-            //---- button4 ----
-            button4.setText("Search");
-            this2.add(button4, new TableLayoutConstraints(5, 7, 5, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+            this2.add(button3, new TableLayoutConstraints(5, 7, 5, 7, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         }
         add(this2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -205,7 +200,6 @@ public class ProductsForm extends JPanel implements Fill {
     private JButton button1;
     private JButton button2;
     private JButton button3;
-    private JButton button4;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Override

@@ -19,7 +19,7 @@ new FormModel {
 				name: "this2"
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label1"
-					"text": "Produced Form Numeric"
+					"text": "Produced Form"
 					"font": new java.awt.Font( "Consolas", 1, 20 )
 					"foreground": new java.awt.Color( 182, 66, 103, 255 )
 					auxiliary() {
@@ -112,7 +112,7 @@ new FormModel {
 					"text": "Add"
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridX": 2
+					"gridX": 3
 					"gridY": 9
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
@@ -121,19 +121,12 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button2MouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridY": 9
-					"gridX": 3
+					"gridX": 4
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "button3"
 					"text": "Update"
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button3MouseClicked", true ) )
-				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
-					"gridX": 4
-					"gridY": 9
-				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button4"
-					"text": "Search"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.TableConstraints ) {
 					"gridX": 5
 					"gridY": 9
